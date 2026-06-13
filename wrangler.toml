@@ -1,0 +1,14 @@
+name = "sahaj-sunn"
+compatibility_date = "2024-01-01"
+pages_build_output_dir = "."
+
+# ──────────────────────────────────────────────────────────────────────────────
+#  KV binding for rate limiting
+#  Fill in your KV namespace ID after you create it in the Cloudflare dashboard:
+#    Workers & Pages → KV → Create namespace → copy the ID below
+#  Leave this block commented out if you want to skip rate limiting locally.
+# ──────────────────────────────────────────────────────────────────────────────
+# [[kv_namespaces]]
+# binding = "RATE_LIMIT"
+# id = "PASTE_YOUR_KV_NAMESPACE_ID_HERE"
+# preview_id = "PASTE_YOUR_KV_NAMESPACE_ID_HERE"

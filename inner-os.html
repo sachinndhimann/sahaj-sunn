@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en" data-theme="">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Inner OS · Sahaj Sunn</title>
+<meta name="description" content="A self-inquiry operating system — one moment, nine layers deep. Part of Sahaj Sunn.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,300;9..144,0,400;9..144,0,600;9..144,1,400&family=Spectral:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@400;500&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#181f33; --bg-2:#202a45; --ink:#edeef8; --ink-soft:#9ba4c6;
+    --indigo:#cdd5f0; --marigold:#e7ad4d; --thread:#5a6898; --line:#2d3d6e; --green:#4caf82;
+    --serif:"Spectral",Georgia,serif; --display:"Fraunces",Georgia,serif;
+    --deva:"Tiro Devanagari Hindi","Noto Serif Devanagari",serif; --mono:"DM Mono",ui-monospace,monospace;
+  }
+  html[data-theme="khadi"]{
+    --bg:#f0e8d6; --bg-2:#e8dcc8; --ink:#1e1810; --ink-soft:#5a5038;
+    --indigo:#1e2d52; --marigold:#b87820; --thread:#b8a882; --line:#ccc0a0; --green:#3a7a55;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{ background:var(--bg); color:var(--ink); font-family:var(--serif); font-size:17px; line-height:1.65;
+    -webkit-font-smoothing:antialiased; transition:background .4s,color .4s; }
+  a{color:inherit} button{font-family:inherit;cursor:pointer}
+
+  .bar{ position:sticky; top:0; z-index:30; display:flex; align-items:center; justify-content:space-between;
+    gap:.8rem; padding:.75rem 1.1rem; background:color-mix(in srgb,var(--bg) 92%,transparent);
+    backdrop-filter:blur(12px); border-bottom:1px solid var(--line); }
+  .brand{ display:flex; align-items:baseline; gap:.35rem; font-size:1rem; text-decoration:none; }
+  .brand b{ font-family:var(--display); color:var(--marigold); font-weight:600; }
+  .brand span{ font-family:var(--display); color:var(--ink); }
+  .brand .sep{ color:var(--line); margin:0 .15rem; }
+  .brand small{ color:var(--ink-soft); font-size:.78rem; }
+  .iconbtn{ background:none; border:1px solid var(--line); color:var(--ink-soft);
+    padding:.32rem .7rem; border-radius:999px; font-size:.76rem; font-family:var(--serif); text-decoration:none; }
+  .iconbtn:hover{ border-color:var(--marigold); color:var(--marigold); }
+  .bar-right{ display:flex; gap:.4rem; align-items:center; }
+
+  .wrap{ max-width:640px; margin:0 auto; padding:2.5rem 1.3rem 4rem; }
+  .deva{ font-family:var(--deva); color:var(--marigold); }
+  .eyebrow{ font-family:var(--display); text-transform:uppercase; letter-spacing:.3em; font-size:.66rem; color:var(--marigold); margin-bottom:1.1rem; }
+  h1{ font-family:var(--display); font-weight:300; font-size:clamp(2.4rem,9vw,3.4rem); line-height:1; margin-bottom:1.1rem; }
+  h1 em{ color:var(--marigold); font-style:italic; }
+  .lead{ color:var(--ink-soft); font-size:1rem; margin-bottom:2rem; }
+
+  /* thesis flow */
+  .flow-card{ background:var(--bg-2); border:1px solid var(--line); border-radius:16px; padding:1.4rem 1.1rem; display:flex; gap:.8rem; align-items:center; margin-bottom:1.2rem; }
+  .flow-col{ flex:1; }
+  .flow-col h4{ font-size:.66rem; letter-spacing:.15em; text-transform:uppercase; margin-bottom:.7rem; font-weight:400; }
+  .flow-col.dim h4{ color:var(--ink-soft); } .flow-col.live h4{ color:var(--marigold); }
+  .step{ font-family:var(--mono); font-size:.8rem; padding:.4rem .65rem; border-radius:8px; border:1px solid var(--line); color:var(--ink-soft); }
+  .flow-col.live .step{ border-color:color-mix(in srgb,var(--marigold) 40%,transparent); color:var(--ink); background:color-mix(in srgb,var(--marigold) 8%,transparent); }
+  .down{ text-align:center; font-size:.7rem; line-height:1.5; }
+  .flow-col.dim .down{ color:var(--line); } .flow-col.live .down{ color:var(--marigold); }
+  .becomes{ font-family:var(--display); font-style:italic; color:var(--marigold); font-size:.8rem; }
+  .shift{ color:var(--ink-soft); text-align:center; font-size:.96rem; margin-bottom:2.5rem; }
+  .shift b{ color:var(--ink); } .shift b.gold{ color:var(--marigold); }
+
+  .kicker{ font-family:var(--display); text-transform:uppercase; letter-spacing:.25em; font-size:.66rem; color:var(--marigold); margin-bottom:.6rem; }
+  h2{ font-family:var(--display); font-weight:400; font-size:clamp(1.7rem,5.5vw,2.1rem); margin-bottom:.6rem; }
+  .sub{ color:var(--ink-soft); font-size:.95rem; margin-bottom:1.6rem; }
+
+  /* spine */
+  .layer{ position:relative; padding-left:2.7rem; padding-bottom:1.1rem; }
+  .layer .line{ position:absolute; left:1.15rem; top:2.5rem; bottom:0; width:2px; background:var(--line); }
+  .node{ position:absolute; left:0; top:.1rem; width:2.3rem; height:2.3rem; border-radius:50%;
+    border:2px solid var(--thread); background:var(--bg-2); display:flex; align-items:center; justify-content:center;
+    font-family:var(--display); font-weight:600; color:var(--indigo); transition:border-color .25s,color .25s; }
+  .layer.open .node{ border-color:var(--marigold); color:var(--marigold); }
+  .lhead{ width:100%; background:none; border:none; display:flex; align-items:center; gap:.5rem; padding:.4rem 0; text-align:left; }
+  .lhead .t{ font-family:var(--display); font-size:1.06rem; color:var(--ink); }
+  .lhead .v{ color:var(--ink-soft); font-size:.8rem; font-style:italic; }
+  .chev{ color:var(--ink-soft); font-size:.75rem; transition:transform .2s; }
+  .layer.open .chev{ transform:rotate(180deg); }
+  .lbody{ display:none; padding:.5rem 0 .2rem; }
+  .layer.open .lbody{ display:block; animation:rin .3s ease; }
+  @keyframes rin{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+  .desc{ color:var(--ink-soft); font-size:.9rem; line-height:1.6; margin-bottom:.8rem; }
+  .box{ background:var(--bg-2); border:1px solid var(--line); border-radius:9px; padding:.65rem .8rem; font-size:.88rem; line-height:1.6; }
+  .box.mono{ font-family:var(--mono); }
+  .chips{ display:flex; flex-wrap:wrap; gap:.35rem; }
+  .chip{ font-size:.78rem; color:var(--ink-soft); border:1px solid var(--line); border-radius:999px; padding:.22rem .65rem; }
+  .lens{ display:flex; gap:.6rem; align-items:baseline; padding:.42rem .6rem; background:var(--bg-2); border:1px solid var(--line); border-radius:8px; }
+  .lens .s{ color:var(--marigold); font-size:.74rem; min-width:5rem; font-family:var(--display); }
+  .lens .l{ color:var(--ink); font-size:.84rem; }
+  .door{ padding:.6rem .8rem; border-radius:9px; background:var(--bg-2); border-left:3px solid var(--thread); }
+  .door .dl{ font-size:.64rem; letter-spacing:.1em; text-transform:uppercase; margin-bottom:.2rem; }
+  .door .dt{ color:var(--ink); font-size:.86rem; }
+  .meter{ display:flex; height:25px; border-radius:6px; overflow:hidden; border:1px solid var(--line); }
+  .meter .seg{ display:flex; align-items:center; padding-left:.5rem; font-size:.7rem; white-space:nowrap; }
+  .grid-gap{ display:grid; gap:.4rem; }
+  .kbox{ margin-top:.7rem; background:var(--bg-2); border:1px solid color-mix(in srgb,var(--marigold) 25%,transparent); border-radius:10px; padding:.75rem .9rem; }
+  .kbox .ktag{ font-size:.62rem; letter-spacing:.16em; text-transform:uppercase; color:var(--marigold); margin-bottom:.5rem; }
+  .kbox .khi{ font-family:var(--deva); font-size:1.05rem; color:var(--ink); line-height:1.7; }
+  .kbox .ken{ color:var(--indigo); font-size:.84rem; font-style:italic; margin-top:.2rem; }
+
+  /* two halves */
+  .halves{ display:grid; grid-template-columns:1fr 1fr; gap:.8rem; margin-top:1.5rem; }
+  @media(max-width:520px){ .halves{ grid-template-columns:1fr; } }
+  .half{ background:var(--bg-2); border:1px solid var(--line); border-radius:16px; padding:1.4rem 1.2rem; text-align:center; }
+  .half .g{ font-family:var(--deva); font-size:1.7rem; color:var(--marigold); margin-bottom:.5rem; }
+  .half h3{ font-family:var(--display); font-weight:500; font-size:1.1rem; margin-bottom:.5rem; }
+  .half p{ color:var(--ink-soft); font-size:.85rem; line-height:1.5; margin-bottom:1rem; }
+  .half a{ color:var(--marigold); font-size:.84rem; border-bottom:1px solid var(--marigold); padding-bottom:2px; text-decoration:none; }
+
+  footer{ text-align:center; padding:3rem 1.3rem 4rem; border-top:1px solid var(--line); }
+  footer .tag{ color:var(--ink-soft); font-size:.78rem; }
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <a class="brand" href="/"><b>Sahaj</b><span>&nbsp;Sunn</span><span class="sep">·</span><small>The Inner OS</small></a>
+  <div class="bar-right">
+    <a class="iconbtn" href="/inner-os-live">Run live →</a>
+    <a class="iconbtn" href="/">Home</a>
+    <button class="iconbtn" id="themeBtn">Khadi</button>
+  </div>
+</header>
+
+<section class="wrap">
+  <p class="eyebrow">A self-inquiry operating system</p>
+  <h1>One moment,<br><em>nine layers deep</em></h1>
+  <p class="lead">Between what happens and what you do, there is a gap. This is that gap — made visible. The same disturbance, taken down through neuroscience, Vedanta, your own conditioning, and Kabir.</p>
+
+  <div class="flow-card">
+    <div class="flow-col dim">
+      <h4>How most people live</h4>
+      <div class="step">Event</div><div class="down">↓</div>
+      <div class="step">Thought</div><div class="down">↓</div>
+      <div class="step">Ego</div><div class="down">↓</div>
+      <div class="step">Emotion</div><div class="down">↓</div>
+      <div class="step">Reaction</div>
+    </div>
+    <div class="becomes">becomes</div>
+    <div class="flow-col live">
+      <h4>What this trains</h4>
+      <div class="step">Event</div><div class="down">↓</div>
+      <div class="step">Observation</div><div class="down">↓</div>
+      <div class="step">Witness</div><div class="down">↓</div>
+      <div class="step">Conscious Choice</div><div class="down">↓</div>
+      <div class="step">Action</div>
+    </div>
+  </div>
+  <p class="shift">Training the shift from <b>"I am the thinker"</b> to <b class="gold">"I am aware of the thinker."</b></p>
+
+  <p class="kicker">The architecture</p>
+  <h2>Nine layers, one event</h2>
+  <p class="sub">Every layer takes the same moment deeper. Tap any layer — and see the Kabir verse it carries.</p>
+
+  <div id="spine"></div>
+
+  <div style="margin-top:3rem">
+    <p class="kicker">The two halves</p>
+    <h2>The book opens the heart. The OS builds the practice.</h2>
+    <p class="sub">Sahaj Sunn began as Kabir's songs. Each song is a doorway; each layer walks you through one. Same root — the witness. Same destination — unconditioned living.</p>
+    <div class="halves">
+      <div class="half">
+        <div class="g">साधो</div>
+        <h3>Songs of the Soul</h3>
+        <p>Eight Kabir songs with meaning. The poetry layer — it makes you feel the truth.</p>
+        <a href="/songs">Read the book →</a>
+      </div>
+      <div class="half">
+        <div class="g">दर्पण</div>
+        <h3>The Inner OS</h3>
+        <p>Nine layers of self-inquiry. The practice layer — it makes you live the truth.</p>
+        <span style="color:var(--ink-soft);font-size:.84rem">You are here</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="deva" style="font-size:1.2rem;margin-bottom:.3rem">सहज सुनो</p>
+  <p class="tag">Closer to a map for consciousness than a journaling app.</p>
+  <p class="tag" style="margin-top:.5rem;color:var(--line)">sahajsunn.com</p>
+</footer>
+
+<script>
+/* Layer data — Kabir lines are short, public-domain Sant Kabir verses */
+const LAYERS = [
+  { n:1, t:"Trigger Detection", v:"What happened?",
+    d:"The user names the raw event. No analysis yet — just the stimulus, captured before the story forms.",
+    box:"My manager criticized my design.",
+    k:["Jag Baurana","साधो देखो, जग बौराना","O seeker, look — the world has gone mad."] },
+  { n:2, t:"Ego Decoder", v:"What part of you got hurt?",
+    d:"Surfaces the ego pattern beneath the reaction — the self that felt threatened.",
+    chips:["Need for validation","Need for control","Fear of rejection","Identity protection","Comparison"],
+    k:["Jagat Mein Kaisa Nata Re","मन फूला फूला फिरे","The mind wanders, swollen with itself."] },
+  { n:3, t:"Neuroscience Layer", v:"What is happening biologically?",
+    d:"Explains the reaction as a survival mechanism, not a truth.",
+    box:"Amygdala activated. The brain reads criticism as social danger. This is not truth, it is a survival mechanism.",
+    k:["Saadho, Ye Murdon Ka Gaon","माटी कहे कुम्हार से","The clay says to the potter: you too are clay."] },
+  { n:4, t:"Vedanta Layer", v:"Who is disturbed?",
+    d:"The core inquiry. Traces the disturbance to the role, not the awareness behind it.",
+    boxmono:"Who is disturbed? → The employee role. Awareness itself is not disturbed.",
+    k:["Nirbhau Nirvair","ऐसी मरनी जो मरे, बहुरि न मरना होय","Die such a death once, and you never die again."] },
+  { n:5, t:"Conditioning Scanner", v:"What belief got triggered?",
+    d:"Finds the hidden rule running underneath, and where it was installed.",
+    chips:["I must always succeed","I must be liked","I must not fail"],
+    k:["Jag Baurana","साखी शब्द गावत भूले, आतम खबर न जाना","They sing the verses by heart, yet know nothing of the Self."] },
+  { n:6, t:"Philosophical Lens Engine", v:"Same event, many schools.",
+    d:"The single moment refracted through every framework at once.",
+    lenses:[["Advaita","This is identification."],["Stoicism","Focus on what is controllable."],["Buddhism","Attachment creates suffering."],["IFS","A protector part has appeared."]],
+    k:["Sahib So Preet","सुंदर देह देख मत भूलो, जैसे तृण पर सीत","Don't be fooled by beauty; it is dew on grass."] },
+  { n:7, t:"Witness State Score", v:"Reaction vs witness.",
+    d:"The only metric that matters: not productivity, but how often you caught yourself.",
+    meter:true,
+    k:["Ud Jaayega Hans Akela","उड़ जाएगा हंस अकेला","The swan will fly off alone."] },
+  { n:8, t:"Conscious Action Generator", v:"Three doors, one choice.",
+    d:"Ego, conditioned, and conscious action shown side by side. The user chooses.",
+    doors:[["Ego Action","Argue with the manager.","var(--marigold)"],["Conditioned Action","Stay silent and suppress.","var(--ink-soft)"],["Conscious Action","Listen, extract the feedback, drop the projection, respond calmly.","var(--green)"]],
+    k:["Ram Gaadi Wale","जित खींचे तित जाऊँ","Wherever the Lord pulls, there I go."] },
+  { n:9, t:"Reflection Loop", v:"What to carry forward.",
+    d:"A nightly review that builds, over time, a personal map of your own ignorance.",
+    chips:["Where did ego run today?","Where was witness present?","What attachment dominated?"],
+    k:["Naiyya Padi Manjhdaar","नैया पड़ी मझधार, गुरु बिन कैसे लगे पार","The boat is caught midstream; without the Guru, how to cross?"] },
+];
+
+function body(L){
+  let h = `<p class="desc">${L.d}</p>`;
+  if(L.box)     h += `<div class="box">${L.box}</div>`;
+  if(L.boxmono) h += `<div class="box mono">${L.boxmono}</div>`;
+  if(L.chips)   h += `<div class="chips">${L.chips.map(c=>`<span class="chip">${c}</span>`).join("")}</div>`;
+  if(L.lenses)  h += `<div class="grid-gap">${L.lenses.map(([s,l])=>`<div class="lens"><span class="s">${s}</span><span class="l">${l}</span></div>`).join("")}</div>`;
+  if(L.doors)   h += `<div class="grid-gap">${L.doors.map(([dl,dt,c])=>`<div class="door" style="border-left-color:${c}"><div class="dl" style="color:${c}">${dl}</div><div class="dt">${dt}</div></div>`).join("")}</div>`;
+  if(L.meter)   h += `
+    <div style="margin-bottom:.5rem"><div style="font-size:.68rem;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem">Today</div>
+    <div class="meter"><div class="seg" style="width:90%;background:color-mix(in srgb,var(--marigold) 28%,transparent);color:var(--marigold)">react 90%</div><div class="seg" style="width:10%;background:color-mix(in srgb,var(--green) 25%,transparent);color:var(--green)">10%</div></div></div>
+    <div><div style="font-size:.68rem;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem">After months</div>
+    <div class="meter"><div class="seg" style="width:25%;background:color-mix(in srgb,var(--marigold) 28%,transparent);color:var(--marigold)">25%</div><div class="seg" style="width:75%;background:color-mix(in srgb,var(--green) 25%,transparent);color:var(--green)">witness 75%</div></div></div>`;
+  h += `<div class="kbox"><div class="ktag">Sahaj Sunn · ${L.k[0]}</div><p class="khi">${L.k[1]}</p><p class="ken">${L.k[2]}</p></div>`;
+  return h;
+}
+
+document.getElementById("spine").innerHTML = LAYERS.map((L,i)=>`
+  <div class="layer${i===0?' open':''}" data-n="${L.n}">
+    ${i<LAYERS.length-1?'<div class="line"></div>':''}
+    <div class="node">${L.n}</div>
+    <button class="lhead"><div style="flex:1"><div class="t">${L.t}</div><div class="v">${L.v}</div></div><span class="chev">▾</span></button>
+    <div class="lbody">${body(L)}</div>
+  </div>`).join("");
+
+document.querySelectorAll(".layer .lhead").forEach(btn=>{
+  btn.onclick = ()=> btn.closest(".layer").classList.toggle("open");
+});
+
+/* theme toggle */
+const root=document.documentElement, tb=document.getElementById("themeBtn");
+if(localStorage.getItem("ss-theme")==="khadi"){ root.setAttribute("data-theme","khadi"); tb.textContent="Dark"; }
+tb.onclick=()=>{ const light=root.getAttribute("data-theme")==="khadi";
+  if(light){ root.removeAttribute("data-theme"); tb.textContent="Khadi"; localStorage.setItem("ss-theme","vat"); }
+  else { root.setAttribute("data-theme","khadi"); tb.textContent="Dark"; localStorage.setItem("ss-theme","khadi"); } };
+</script>
+</body>
+</html>

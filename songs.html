@@ -1,0 +1,1226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Sahaj Sunn · Saint Kabir: Songs of the Soul</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&family=Tiro+Devanagari+Hindi:ital@0;1&display=swap" rel="stylesheet" />
+
+<!-- ============================================================= -->
+<!--  EDIT YOUR BOOK HERE                                           -->
+<!--  Everything readable lives in the BOOK object in <script>      -->
+<!--  near the bottom. Change text there; the design stays intact.  -->
+<!--  Verse fields:  hi = Devanagari · tr = transliteration         -->
+<!--                 en = translation · note = interpretation       -->
+<!--  Use \n inside hi/tr/en to break a couplet onto two lines.     -->
+<!-- ============================================================= -->
+
+<style>
+  /* ---------- Theme tokens ---------- */
+  :root{
+    /* Vat (dark) — default */
+    --bg:        #181f33;
+    --bg-2:      #202a45;
+    --ink:       #edeef8;
+    --ink-soft:  #9ba4c6;
+    --indigo:    #cdd5f0;
+    --indigo-2:  #b4bfe6;
+    --marigold:  #e7ad4d;
+    --marigold-2:#f1c172;
+    --thread:    #5a6898;
+    --line:      #2d3d6e;
+    --paper-tex: rgba(180,200,255,.025);
+
+    --serif: "Spectral", Georgia, "Times New Roman", serif;
+    --display: "Fraunces", Georgia, serif;
+    --deva: "Tiro Devanagari Hindi", "Noto Serif Devanagari", "Nirmala UI", system-ui, serif;
+
+    --read: 1;
+    --maxw: 720px;
+  }
+  html[data-theme="khadi"]{
+    /* Khadi (warm light) — opt-in */
+    --bg:        #f0e8d6;
+    --bg-2:      #e8dcc8;
+    --ink:       #1e1810;
+    --ink-soft:  #5a5038;
+    --indigo:    #1e2d52;
+    --indigo-2:  #2e3e6a;
+    --marigold:  #b87820;
+    --marigold-2:#d49030;
+    --thread:    #b8a882;
+    --line:      #ccc0a0;
+    --paper-tex: rgba(100,80,40,.06);
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
+
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 18% 12%, var(--paper-tex) 0 1.5px, transparent 1.6px) 0 0/22px 22px,
+      var(--bg);
+    color:var(--ink);
+    font-family:var(--serif);
+    font-size:calc(18px * var(--read));
+    line-height:1.62;
+    -webkit-font-smoothing:antialiased;
+    transition:background-color .5s ease, color .5s ease;
+  }
+
+  /* ---------- Top bar ---------- */
+  .progress{ position:fixed; top:0; left:0; height:3px; width:0%;
+    background:linear-gradient(90deg,var(--marigold),var(--marigold-2)); z-index:60; }
+
+  .bar{ position:fixed; top:0; left:0; right:0; z-index:50;
+    display:flex; align-items:center; gap:.6rem;
+    padding:.55rem clamp(.8rem,3vw,1.4rem);
+    background:color-mix(in srgb, var(--bg) 86%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line); }
+  .bar .brand{ font-family:var(--display); font-weight:500; letter-spacing:.02em;
+    font-size:.98rem; margin-right:auto; cursor:pointer; color:var(--ink);
+    background:none; border:0; }
+  .bar .brand b{ color:var(--marigold); font-weight:600; }
+  .iconbtn{ font:inherit; font-size:.82rem; letter-spacing:.04em;
+    color:var(--ink); background:transparent; border:1px solid var(--line);
+    padding:.34rem .7rem; border-radius:999px; cursor:pointer;
+    display:inline-flex; align-items:center; gap:.4rem; transition:.2s; }
+  .iconbtn:hover{ border-color:var(--marigold); color:var(--marigold); }
+  .iconbtn:focus-visible{ outline:2px solid var(--marigold); outline-offset:2px; }
+
+  /* reader language toggle */
+  html[data-lang="hi"] .en-group{ display:none; }
+  html[data-lang="en"] .verse .hi{ display:none; }
+
+  @media (max-width:560px){
+    .bar{ gap:.4rem; padding:.5rem .7rem; }
+    .bar .bsub{ display:none; }
+    .iconbtn{ padding:.3rem .55rem; font-size:.75rem; }
+  }
+
+  /* ---------- Cover ---------- */
+  .cover{ position:relative; min-height:100svh; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center;
+    padding:6rem 1.2rem 4rem; overflow:hidden; }
+  .warp{ position:absolute; inset:0; z-index:0; opacity:.5; pointer-events:none; }
+  .warp span{ position:absolute; top:0; bottom:0; width:1px;
+    background:linear-gradient(var(--thread), transparent 70%); }
+  .weft{ position:absolute; left:0; right:0; height:1px; background:var(--marigold);
+    opacity:.35; animation:weave 9s ease-in-out infinite; }
+  @keyframes weave{ 0%,100%{ top:18%; opacity:.12 } 50%{ top:74%; opacity:.4 } }
+  @media (prefers-reduced-motion: reduce){ .weft{ animation:none; top:46% } }
+
+  .cover-inner{ position:relative; z-index:1; max-width:760px; }
+  .eyebrow{ font-family:var(--display); text-transform:uppercase;
+    letter-spacing:.5em; font-size:.74rem; color:var(--marigold); margin:0 0 1.4rem .5em;
+    font-weight:600; }
+  .title{ font-family:var(--display); font-weight:400; line-height:.96;
+    font-size:clamp(3.2rem,12vw,6.4rem); margin:0; color:var(--ink);
+    font-optical-sizing:auto; }
+  .title em{ font-style:italic; color:var(--indigo); }
+  .deva-mark{ font-family:var(--deva); color:var(--marigold); font-size:clamp(1.4rem,5vw,2rem);
+    margin:1.3rem 0 .2rem; opacity:.9; }
+  .subtitle{ font-size:1.05rem; color:var(--ink-soft); letter-spacing:.02em; margin:.4rem 0 0; }
+  .author{ font-family:var(--display); font-style:italic; color:var(--ink-soft);
+    margin-top:1.5rem; font-size:1rem; }
+  .cover-cta{ margin-top:2.6rem; display:flex; gap:.8rem; justify-content:center; flex-wrap:wrap; }
+  .btn{ font-family:var(--serif); font-size:.95rem; cursor:pointer; border-radius:999px;
+    padding:.7rem 1.5rem; border:1px solid var(--indigo); transition:.22s; }
+  .btn.primary{ background:var(--indigo); color:var(--bg); }
+  .btn.primary:hover{ background:var(--indigo-2); transform:translateY(-1px); }
+  .btn.ghost{ background:transparent; color:var(--ink); border-color:var(--line); }
+  .btn.ghost:hover{ border-color:var(--marigold); color:var(--marigold); }
+  .btn:focus-visible{ outline:2px solid var(--marigold); outline-offset:3px; }
+  .scrollcue{ position:absolute; bottom:1.6rem; left:50%; transform:translateX(-50%);
+    color:var(--ink-soft); font-size:.72rem; letter-spacing:.3em; text-transform:uppercase; z-index:1; }
+
+  /* ---------- Generic section ---------- */
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 clamp(1.1rem,5vw,1.5rem); }
+  .band{
+    padding:clamp(3.5rem,9vw,6rem) 0;
+    background:
+      radial-gradient(circle at 18% 12%, var(--paper-tex) 0 1.5px, transparent 1.6px) 0 0/22px 22px,
+      var(--bg);
+  }
+  .band.alt{ background:
+      radial-gradient(circle at 80% 0%, var(--paper-tex) 0 1.5px, transparent 1.6px) 0 0/22px 22px,
+      var(--bg-2); }
+
+  .kicker{ font-family:var(--display); text-transform:uppercase; letter-spacing:.34em;
+    font-size:.7rem; color:var(--marigold); font-weight:600; margin:0 0 1rem; }
+  h2.section{ font-family:var(--display); font-weight:400; font-size:clamp(1.9rem,6vw,2.8rem);
+    line-height:1.08; margin:0 0 1.2rem; color:var(--ink); }
+  .lead{ color:var(--ink-soft); font-size:1.06rem; }
+  .prose p{ margin:0 0 1rem; }
+
+  /* teachings */
+  .teach{ display:grid; gap:.2rem; margin-top:1.8rem; border-top:1px solid var(--line); }
+  .teach .row{ display:grid; grid-template-columns:auto 1fr; gap:1rem; align-items:baseline;
+    padding:.95rem .2rem; border-bottom:1px solid var(--line); }
+  .teach .term{ font-family:var(--display); font-weight:600; color:var(--indigo);
+    font-size:1.05rem; }
+  .teach .term .d{ font-family:var(--deva); color:var(--marigold); margin-left:.4rem; font-size:.95em; }
+  .teach .def{ color:var(--ink-soft); }
+
+  /* ---------- Chapter ---------- */
+  .chapter{ padding-top:clamp(3rem,8vw,5rem); scroll-margin-top:64px; }
+  .chap-head{ position:relative; margin-bottom:2.6rem; }
+  .chap-no{ font-family:var(--display); font-style:italic; color:var(--marigold);
+    font-size:1rem; letter-spacing:.1em; }
+  .chap-title{ font-family:var(--display); font-weight:400; line-height:1.04;
+    font-size:clamp(2rem,7vw,3.1rem); margin:.25rem 0 .15rem; color:var(--ink); }
+  .chap-sub{ color:var(--ink-soft); font-size:1.08rem; font-style:italic; }
+  .chap-meta{ margin-top:1.2rem; display:flex; flex-wrap:wrap; gap:.45rem .7rem;
+    font-size:.8rem; }
+  .chip{ border:1px solid var(--line); border-radius:999px; padding:.22rem .7rem;
+    color:var(--ink-soft); letter-spacing:.02em; }
+  .chip b{ color:var(--ink); font-weight:600; }
+  .chip.play{ border-color:var(--marigold); color:var(--marigold); text-decoration:none; }
+  .chip.play:hover{ background:var(--marigold); color:var(--bg); }
+
+  /* The thread (warp) running down the verses */
+  .verses{ position:relative; margin-left:1.1rem; padding-left:1.9rem; }
+  .verses::before{ content:""; position:absolute; left:0; top:.4rem; bottom:.4rem;
+    width:2px; background:linear-gradient(var(--thread), var(--thread)); opacity:.85; }
+
+  .verse{ position:relative; padding:1.5rem 0; }
+  .verse + .verse{ border-top:1px dashed var(--line); }
+  .knot{ position:absolute; left:calc(-1.9rem - 1px); top:1.65rem;
+    width:1.55rem; height:1.55rem; transform:translateX(-50%);
+    display:grid; place-items:center; border-radius:50%;
+    background:var(--bg); border:2px solid var(--thread);
+    font-family:var(--display); font-size:.82rem; color:var(--indigo); font-weight:600; }
+  .band.alt .knot{ background:var(--bg-2); }
+  .verse.in .knot{ border-color:var(--marigold); }
+
+  .hi{ font-family:var(--deva); font-size:1.34rem; line-height:1.85; color:var(--ink);
+    margin:0 0 .35rem; font-weight:400; }
+  .tr{ font-style:italic; color:var(--indigo); font-size:1rem; margin:0 0 .55rem; }
+  .en{ font-size:1.05rem; margin:0; }
+  .note{ margin:.75rem 0 0; padding-left:.9rem; border-left:2px solid var(--marigold);
+    color:var(--ink-soft); font-size:.96rem; }
+  .note .nlabel{ font-family:var(--display); text-transform:uppercase; letter-spacing:.18em;
+    font-size:.62rem; color:var(--marigold); display:block; margin-bottom:.2rem; }
+
+  /* reveal — transform only, text always readable */
+  .verse, .reveal{ opacity:1; transform:translateY(16px); transition:transform .55s ease; }
+  .verse.in, .reveal.in{ transform:none; }
+  @media (prefers-reduced-motion: reduce){
+    .verse,.reveal{ transform:none; } }
+
+  .chap-divider{ display:flex; align-items:center; gap:1rem; margin:3.4rem 0 0;
+    color:var(--thread); }
+  .chap-divider::before,.chap-divider::after{ content:""; height:1px; flex:1; background:var(--line); }
+  .chap-divider .dot{ font-family:var(--deva); color:var(--marigold); font-size:1.1rem; }
+
+  /* ---------- Glossary ---------- */
+  .gloss{ display:grid; grid-template-columns:repeat(auto-fill,minmax(220px,1fr)); gap:.9rem; margin-top:1.9rem; }
+  .gcard{ background:var(--bg); border:1px solid var(--line); border-radius:14px;
+    padding:1.1rem 1.15rem; transition:.22s; }
+  .band.alt .gcard{ background:var(--bg-2); }
+  .gcard:hover{ border-color:var(--marigold); transform:translateY(-2px); }
+  .gcard h3{ font-family:var(--display); margin:0 0 .35rem; font-weight:600; font-size:1.15rem;
+    color:var(--indigo); display:flex; align-items:baseline; gap:.5rem; }
+  .gcard h3 .d{ font-family:var(--deva); color:var(--marigold); font-size:.92em; }
+  .gcard p{ margin:0; color:var(--ink-soft); font-size:.92rem; line-height:1.5; }
+
+  /* ---------- Listen / index ---------- */
+  .index{ margin-top:1.8rem; border-top:1px solid var(--line); }
+  .index a.song{ display:flex; align-items:center; gap:1rem; text-decoration:none;
+    color:var(--ink); padding:1rem .2rem; border-bottom:1px solid var(--line); transition:.2s; }
+  .index a.song:hover{ background:color-mix(in srgb, var(--marigold) 9%, transparent);
+    padding-left:.7rem; }
+  .index .si-no{ font-family:var(--display); font-style:italic; color:var(--marigold); width:1.6rem; }
+  .index .si-name{ flex:1; font-size:1.06rem; }
+  .index .si-name small{ display:block; color:var(--ink-soft); font-size:.78rem; font-style:italic; }
+  .index .si-go{ font-size:.78rem; letter-spacing:.04em; color:var(--indigo);
+    border:1px solid var(--line); border-radius:999px; padding:.28rem .8rem; white-space:nowrap; }
+  .index a.song:hover .si-go{ border-color:var(--marigold); color:var(--marigold); }
+
+  /* ---------- Closing ---------- */
+  .why p{ margin:0 0 1rem; color:var(--ink); }
+  .why .sign{ font-family:var(--display); font-style:italic; color:var(--marigold); margin-top:.4rem; }
+  .why .sign::before{ content:"· "; opacity:.7; }
+  .quote .by::before{ content:"· "; }
+  .invite{ list-style:none; padding:0; margin:1.8rem 0 0; display:grid; gap:.85rem; }
+  .invite li{ padding-left:1.3rem; position:relative; color:var(--ink-soft); }
+  .invite li::before{ content:""; position:absolute; left:0; top:.62em; width:.5rem; height:.5rem;
+    background:var(--marigold); border-radius:50%; }
+  .invite li b{ color:var(--ink); }
+
+  .quote{ text-align:center; max-width:680px; margin:0 auto; }
+  .quote .q{ font-family:var(--display); font-style:italic; font-size:clamp(1.4rem,4.5vw,2rem);
+    line-height:1.4; color:var(--indigo); }
+  .quote .by{ margin-top:1.2rem; letter-spacing:.3em; text-transform:uppercase;
+    font-size:.72rem; color:var(--marigold); }
+
+  footer.foot{ text-align:center; padding:3rem 1rem 4rem; color:var(--ink-soft);
+    font-size:.82rem; border-top:1px solid var(--line); }
+  footer.foot .deva{ font-family:var(--deva); color:var(--marigold); }
+  footer.foot .brand-name{ font-family:var(--display); font-size:1.6rem; font-weight:400;
+    color:var(--ink); margin:0 0 .3rem; letter-spacing:.04em; }
+  footer.foot .brand-name b{ color:var(--marigold); }
+  footer.foot .brand-tag{ font-size:.78rem; letter-spacing:.22em; text-transform:uppercase;
+    color:var(--ink-soft); margin:0 0 1.6rem; }
+  .foot-links{ display:flex; justify-content:center; flex-wrap:wrap; gap:.5rem 1.2rem;
+    margin:1.2rem 0 1.8rem; }
+  .foot-links a{ color:var(--ink-soft); text-decoration:none; font-size:.82rem;
+    display:inline-flex; align-items:center; gap:.35rem; transition:.2s;
+    border-bottom:1px solid transparent; padding-bottom:1px; }
+  .foot-links a:hover{ color:var(--marigold); border-color:var(--marigold); }
+  .foot-links .fi{ font-style:normal; font-size:.9rem; }
+
+
+  /* Hindi reflection */
+  .note-hi{ display:none; margin:.75rem 0 0; padding-left:.9rem;
+    border-left:2px solid var(--marigold); color:var(--ink-soft); font-size:.96rem;
+    font-family:var(--deva); line-height:1.7; }
+  html[data-lang="hi"] .note-hi{ display:block; }
+  html[data-lang="hi"] .en-group .note{ display:none; }
+
+  /* Bridge between songs */
+  .chap-bridge{ text-align:center; padding:1.6rem 0 .4rem; max-width:480px; margin:0 auto; }
+  .bridge-line{ font-family:var(--display); font-style:italic;
+    color:var(--ink-soft); font-size:1rem; margin:0 0 .45rem; }
+  .bridge-hi{ font-family:var(--deva); color:var(--marigold);
+    font-size:.9rem; margin:0; opacity:.85; }
+
+  /* Guide / orientation card */
+  .guide-band{ padding:clamp(1.6rem,4vw,2.4rem) 0; }
+  .guide-card{ border:1px solid var(--line); border-radius:18px;
+    padding:1.4rem 1.5rem; background:var(--bg-2); }
+  .guide-card .kicker{ margin-bottom:.5rem; }
+  .guide-card h2{ font-size:1.05rem !important; margin:0 0 1rem !important; color:var(--ink); }
+  .guide-layers{ display:grid; gap:.55rem; margin-bottom:1rem; }
+  .gl-row{ display:flex; align-items:baseline; gap:.9rem; }
+  .gl-sym{ font-family:var(--display); font-weight:600; color:var(--indigo);
+    min-width:2rem; font-size:1rem; }
+  .gl-sym.deva{ font-family:var(--deva); font-size:1.1rem; color:var(--marigold); }
+  .gl-sym.italic{ font-style:italic; }
+  .gl-desc{ color:var(--ink-soft); font-size:.88rem; }
+  .guide-tip{ font-size:.84rem; color:var(--ink-soft); margin:0;
+    padding-top:.9rem; border-top:1px solid var(--line); line-height:1.5; }
+  .guide-tip b{ color:var(--ink); }
+
+  /* ---------- Support (dakshina) ---------- */
+  .support{ text-align:center; max-width:560px; margin:0 auto; }
+  .support .kicker{ margin-bottom:.8rem; }
+  .support h2{ font-family:var(--display); font-weight:400; font-size:clamp(1.5rem,4.5vw,2rem);
+    margin:0 0 .8rem; color:var(--ink); }
+  .support .smsg{ color:var(--ink-soft); font-size:1.02rem; margin:0 auto; max-width:46ch; }
+  .support .use{ font-size:.9rem; color:var(--ink-soft); margin:.9rem auto 0; max-width:50ch; line-height:1.55; }
+  .support .use a{ color:var(--indigo); text-decoration:none; border-bottom:1px solid var(--marigold);
+    padding-bottom:1px; transition:.2s; }
+  .support .use a:hover{ color:var(--marigold); }
+  .give{ margin-top:2rem; display:inline-flex; flex-direction:column; align-items:center; gap:.7rem; }
+  .qr-tile{ background:#f3ece0; padding:.7rem; border-radius:16px; border:1px solid #d8ccb1;
+    box-shadow:0 6px 24px rgba(40,30,10,.12); line-height:0; }
+  .qr-tile canvas,.qr-tile img{ display:block; border-radius:4px; }
+  .qr-cap{ font-size:.68rem; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-soft); }
+  .upi-row{ display:inline-flex; align-items:center; gap:.55rem; }
+  .upi-id{ font-family:var(--display); color:var(--indigo); font-size:1.02rem; letter-spacing:.01em; }
+  .copybtn{ font:inherit; font-size:.74rem; letter-spacing:.04em; color:var(--ink); cursor:pointer;
+    background:transparent; border:1px solid var(--line); border-radius:999px; padding:.22rem .65rem; transition:.2s; }
+  .copybtn:hover{ border-color:var(--marigold); color:var(--marigold); }
+  .give .sep{ display:flex; align-items:center; gap:.7rem; color:var(--ink-soft);
+    font-size:.74rem; letter-spacing:.18em; text-transform:uppercase; width:min(280px,70vw); margin:.4rem 0; }
+  .give .sep::before,.give .sep::after{ content:""; height:1px; flex:1; background:var(--line); }
+  .intl-btn{ font-family:var(--serif); font-size:.95rem; text-decoration:none; cursor:pointer;
+    border-radius:999px; padding:.62rem 1.4rem; border:1px solid var(--indigo); color:var(--ink); transition:.22s; }
+  .intl-btn:hover{ border-color:var(--marigold); color:var(--marigold); transform:translateY(-1px); }
+  .support .fine{ font-size:.78rem; color:var(--ink-soft); margin-top:1.7rem; }
+  .hc-gift{ font-family:var(--display); font-style:italic; color:var(--indigo);
+    font-size:1rem; margin:.8rem auto 0; max-width:44ch; }
+  .hc-pills{ display:flex; flex-wrap:wrap; gap:.5rem; justify-content:center; margin:1.2rem 0 0; }
+  .hc-pill{ font-size:.82rem; padding:.32rem .85rem; border-radius:999px;
+    border:1px solid var(--line); color:var(--ink-soft); letter-spacing:.01em; }
+
+  /* ---------- Contents drawer ---------- */
+  .scrim{ position:fixed; inset:0; background:rgba(20,15,5,.45); z-index:70;
+    opacity:0; pointer-events:none; transition:.3s; }
+  .scrim.open{ opacity:1; pointer-events:auto; }
+  .drawer{ position:fixed; top:0; right:0; bottom:0; width:min(360px,86vw); z-index:80;
+    background:var(--bg); border-left:1px solid var(--line); transform:translateX(102%);
+    transition:transform .35s cubic-bezier(.2,.8,.2,1); padding:1.4rem 1.3rem; overflow-y:auto; }
+  .drawer.open{ transform:none; }
+  .drawer .dhead{ display:flex; align-items:center; justify-content:space-between; margin-bottom:1.2rem; }
+  .drawer .dhead h3{ font-family:var(--display); margin:0; font-weight:500; }
+  .drawer nav a{ display:block; text-decoration:none; color:var(--ink); padding:.7rem .2rem;
+    border-bottom:1px solid var(--line); transition:.18s; }
+  .drawer nav a:hover{ color:var(--marigold); padding-left:.4rem; }
+  .drawer nav a .n{ font-family:var(--display); font-style:italic; color:var(--marigold); margin-right:.6rem; }
+  .drawer nav a small{ display:block; color:var(--ink-soft); font-size:.78rem; font-style:italic; }
+  .close{ background:none; border:0; font-size:1.4rem; line-height:1; color:var(--ink); cursor:pointer; }
+
+  @media (max-width:560px){
+    .teach .row{ grid-template-columns:1fr; gap:.15rem; }
+    .verses{ margin-left:.4rem; padding-left:1.7rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="progress" id="progress"></div>
+
+  <header class="bar">
+    <button class="brand" id="toTop"><b>Sahaj Sunn</b><span class="bsub"> · Songs of the Soul</span></button>
+    <button class="iconbtn" id="langBtn" aria-label="Reading language">हि·En</button>
+    <button class="iconbtn" id="sizeBtn" aria-label="Change text size">A<sup style="font-size:.7em">a</sup></button>
+    <button class="iconbtn" id="themeBtn" aria-label="Toggle reading mood">Khadi</button>
+    <button class="iconbtn" id="tocBtn" aria-haspopup="true">Contents</button>
+  </header>
+
+  <!-- COVER -->
+  <section class="cover" id="top">
+    <div class="warp" id="warp" aria-hidden="true"><div class="weft"></div></div>
+    <div class="cover-inner">
+      <p class="eyebrow">Saint Kabir</p>
+      <h1 class="title">Songs of <em>the</em> Soul</h1>
+      <div class="deva-mark">साधो, सुनो भाई साधो</div>
+      <p class="subtitle">Lyrics with meaning · the mystic behind the music.</p>
+      <div class="cover-cta">
+        <button class="btn primary" id="begin">Begin reading</button>
+        <button class="btn ghost" id="coverToc">Browse the songs</button>
+      </div>
+    </div>
+    <div class="scrollcue">scroll</div>
+  </section>
+
+  <!-- ABOUT / ETERNAL VOICE -->
+  <section class="band" id="about">
+    <div class="wrap prose reveal">
+      <p class="kicker">The eternal voice</p>
+      <h2 class="section">A weaver who wove truth into the everyday</h2>
+      <p class="lead">Kabir lived in fifteenth-century India, yet his words slip past time. Born to a weaver's family and claimed by both Hindu and Muslim, he belonged to no camp. He rejected caste, ritual, and priesthood whenever they blocked direct experience, his God was found not in temple or mosque, but in the breath, within the self.</p>
+      <p>These verses travelled by mouth long before they were written: sung by seekers, carried across centuries, and now drifting back to us through song. What follows is a modern <em>satsang</em>, eight songs, a few from film and many from independent voices, where music, poetry, and spirit meet.</p>
+
+      <div class="teach" id="teach"><!-- core teachings injected --></div>
+    </div>
+  </section>
+
+
+  <!-- Guide / orientation card -->
+  <section class="band guide-band">
+    <div class="wrap guide-card reveal">
+      <p class="kicker">Before you begin</p>
+      <h2 class="section">How each verse is arranged</h2>
+      <div class="guide-layers">
+        <div class="gl-row"><span class="gl-sym deva">क</span><span class="gl-desc">Devanagari — the verse as Kabir sang it</span></div>
+        <div class="gl-row"><span class="gl-sym italic">it.</span><span class="gl-desc">Transliteration — how it sounds in Roman</span></div>
+        <div class="gl-row"><span class="gl-sym">En</span><span class="gl-desc">Translation — what the words mean</span></div>
+        <div class="gl-row"><span class="gl-sym" style="color:var(--marigold)">✦</span><span class="gl-desc">Reflection — the self-knowledge reading</span></div>
+      </div>
+      <p class="guide-tip">The <b>हि·En</b> button at the top cycles the view: both layers · हिंदी चिंतन · English only. Songs follow a spiritual arc from awakening through homecoming.</p>
+    </div>
+  </section>
+
+  <!-- CHAPTERS injected here -->
+  <main id="book"></main>
+
+  <!-- GLOSSARY -->
+  <section class="band alt" id="glossary">
+    <div class="wrap reveal">
+      <p class="kicker">A reader's lexicon</p>
+      <h2 class="section">Words for the inward journey</h2>
+      <p class="lead" style="margin-bottom:0">Kabir's songs lean on a small grammar of self-knowledge. A few words, <em>ego</em> above all, carry a meaning here that everyday use has quietly worn away.</p>
+      <div class="gloss" id="gloss"></div>
+    </div>
+  </section>
+
+  <!-- LISTEN -->
+  <section class="band" id="listen">
+    <div class="wrap reveal">
+      <p class="kicker">Let it be sung</p>
+      <h2 class="section">Hear every song</h2>
+      <p class="lead">Don't only read Kabir, listen. Each link opens the song so the verse can reach your heart, not just your mind.</p>
+      <div class="index" id="index"></div>
+    </div>
+  </section>
+
+  <!-- WHY / CLOSING -->
+  <section class="band alt" id="why">
+    <div class="wrap why reveal">
+      <p class="kicker">Why I wrote this book</p>
+      <h2 class="section">I stumbled upon him, first through music, then through meaning</h2>
+      <p>His verses didn't preach; they pierced. In a single line he would say what whole books struggle to. And then, strangely, I began hearing him in places I never expected, inside films, drifting from speakers, hidden in lyrics.</p>
+      <p>This is not a scholarly study. It's a personal exploration. If a single reader finds pause, breath, or awakening in these pages, Kabir's work is done again.</p>
+      <p class="sign">Sahaj Sunn</p>
+      <ul class="invite">
+        <li><b>Listen. Reflect. Sing.</b> Don't just read Kabir, experience him.</li>
+        <li><b>Share</b> this with anyone who is seeking, consciously or not.</li>
+        <li><b>Question</b> everything you think you know. Like Kabir, become a loving rebel.</li>
+        <li><b>Remember:</b> truth doesn't need your belief. It needs your presence.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="wrap quote reveal">
+      <p class="q">“Where do you search me, O seeker? I am with you, not in temples nor mosques, but in your breath, your stillness, your song.”</p>
+      <p class="by">Kabir</p>
+    </div>
+  </section>
+
+  <section class="band" id="hardcopy" hidden>
+    <div class="wrap support reveal">
+      <p class="kicker">Hold it in your hands</p>
+      <h2 id="hc-head"></h2>
+      <p class="smsg" id="hc-msg"></p>
+      <div class="give">
+        <a class="intl-btn" id="hcBtn" href="#"></a>
+        <span class="qr-cap" id="hc-email"></span>
+      </div>
+    </div>
+  </section>
+
+  <section class="band alt" id="support" hidden>
+    <div class="wrap support reveal">
+      <p class="kicker">Support</p>
+      <h2 id="s-head"></h2>
+      <p class="smsg" id="s-msg"></p>
+      <p class="use" id="s-use"></p>
+      <div class="give">
+        <a class="intl-btn" id="intlBtn" target="_blank" rel="noopener"></a>
+      </div>
+      <p class="fine" id="s-fine"></p>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p class="deva">सहज सुनो</p>
+    <p class="brand-name"><b>Sahaj</b> Sunn</p>
+    <p class="brand-tag">Listen effortlessly</p>
+    <div class="foot-links">
+      <a href="https://sahajsunn.in" target="_blank" rel="noopener"><i class="fi">🌐</i> sahajsunn.in</a>
+      <a href="https://instagram.com/sahajsunn" target="_blank" rel="noopener"><i class="fi">📷</i> @sahajsunn</a>
+      <a href="https://youtube.com/@sahajsunn" target="_blank" rel="noopener"><i class="fi">▶</i> Sahaj Sunn</a>
+    </div>
+    <p class="deva">कहै कबीर सुनो भाई साधो</p>
+    <p>Songs of the Soul · A reading of Sant Kabir Das through Hindi songs.</p>
+  </footer>
+
+  <!-- Contents drawer -->
+  <div class="scrim" id="scrim"></div>
+  <aside class="drawer" id="drawer" aria-label="Contents">
+    <div class="dhead"><h3>Contents</h3><button class="close" id="closeDrawer" aria-label="Close">×</button></div>
+    <nav id="tocNav"></nav>
+  </aside>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+/* ===========================================================
+   BOOK DATA ,  edit freely. Design reads from this object.
+   =========================================================== */
+const BOOK = {
+  teachings: [
+    {term:"Maya",   d:"माया",   def:"The illusion of the material world, forever deceiving."},
+    {term:"Naam",   d:"नाम",    def:"The Divine Name, not chanted mindlessly, but lived with awareness."},
+    {term:"Shabd",  d:"शब्द",   def:"The eternal sound or word, resonating within."},
+    {term:"Guru",   d:"गुरु",   def:"The true teacher, not in form, but in essence."},
+    {term:"Nirgun", d:"निर्गुण", def:"The formless reality, beyond duality and description."}
+  ],
+
+  chapters: [
+  {
+    "slug": "jag-baurana",
+    "title": "Jag Baurana",
+    "sub": "The World Has Gone Mad",
+    "meta": [
+      [
+        "Lyrics",
+        "Sant Kabir Das"
+      ],
+      [
+        "Artists",
+        "Aabhas-Shreyas & Indie Routes"
+      ]
+    ],
+    "listen": "https://youtu.be/kbTUKUPjJY0",
+    "bridge": "The world's madness is seen. Now look at what you are holding so tightly. What, really, is this bond?",
+    "bridge_hi": "दुनिया की दीवानगी दिख गई। अब देखो — तुम किसे पकड़े हो? यह नाता है क्या?",
+    "verses": [
+      {
+        "hi": "साधो देखो, जग बौराना।\nसाँची कहे तो मारन धावे, झूठे जग पतियाना॥",
+        "tr": "Saadho dekho, jag baurana.\nSaanchi kahe to maaran dhaave, jhoothe jag patiyaana.",
+        "en": "O seeker, look. The world has lost its mind: speak truth and it rushes to strike you; it places its faith in lies.",
+        "note": "The madness is not outside. It is the mind that has mistaken itself for the body, and guards its story at every cost. Whatever attacks honesty is the ego defending itself.",
+        "note_hi": "यह पागलपन बाहर नहीं है। मन ने खुद को शरीर मान लिया है और अपनी कहानी बचाता है। जो सच से डरे, वह अहंकार है।"
+      },
+      {
+        "hi": "हिंदू कहें मोहि राम पियारा, तुर्क कहें रहमाना।\nआपस में दोउ लड़े मरत हैं, मरम न कोऊ जाना॥",
+        "tr": "Hindu kahein mohi Ram piyaara, Turk kahein Rahmana.\nAapas mein dou lade marat hain, maram na ko-oo jaana.",
+        "en": "The Hindu says Ram is dear to me; the Turk says Rahman. They fight to the death over names, and not one has touched the secret.",
+        "note": "Both fight over labels for the same formless Reality. Drop the label 'I am this religion' and there is no one left to defend, no other to oppose.",
+        "note_hi": "लड़ाई नामों के बीच है, सच के बीच नहीं। नाम छोड़ो, कोई दुश्मन न रहे।"
+      },
+      {
+        "hi": "बहुत मिले मोहि नेमी धर्मी, प्रात करें अस्नाना।\nआतम छोड़ि पाषाण पूजैं, उनमें कछु न ज्ञाना॥",
+        "tr": "Bahut mile mohi nemi dharmi, praat karein asnaana.\nAatam chhodi pashaan poojain, unmein kachhu na gyaana.",
+        "en": "I have met many pious men who bathe at dawn, yet forsake the Self to worship stone; in them there is no real knowing.",
+        "note": "To seek the divine in an object outside is to overlook the one who is looking. Ritual scrubs the body while the 'I'-sense it was meant to dissolve sits quietly untouched.",
+        "note_hi": "बाहर खोजना 'देखने वाले' को नज़रअंदाज़ करना है। शरीर धोया जाता है, पर 'मैं' का भाव जस का तस बना रहता है।"
+      },
+      {
+        "hi": "बहुतक देखे पीर औलिया, पढ़ें किताब कुराना।\nकरें मुरीद कब्र बतावैं, उनहूँ खुदा न जाना॥",
+        "tr": "Bahutak dekhe peer auliya, padhein kitaab quraana.\nKarein mureed kabr bataavain, unhoon khuda na jaana.",
+        "en": "Many saints, many holy men, reciting the book, gathering disciples, pointing to graves — yet they too have not known God.",
+        "note": "Authority over others is not realization. One can guide crowds and still not have met the Self. Pointing outward, even to the sacred, keeps the seeker's gaze turned away.",
+        "note_hi": "दूसरों को राह दिखाना जागृति नहीं है। जो खुद न जागा हो, वह दूसरों को कहाँ जगाएगा?"
+      },
+      {
+        "hi": "आसन मारि डिंभ धरि बैठे, मन में बहुत गुमाना।\nपीपर पाथर पूजन लागे, तीरथ गरब भुलाना॥",
+        "tr": "Aasan maari dimbh dhari baithe, man mein bahut gumaana.\nPeepar paathar poojan laage, teerath garab bhulaana.",
+        "en": "They sit in solemn poses, full of show, the mind swollen with pride; they worship tree and stone, lost in the conceit of pilgrimage.",
+        "note": "Even spiritual practice feeds the ego: see how holy I am. The very effort meant to thin the self quietly fattens it instead, and pride learns to wear the robe of devotion.",
+        "note_hi": "साधना भी अहंकार को पोष सकती है। 'मैं कितना आध्यात्मिक हूँ' — यह भी एक अहंकार है।"
+      },
+      {
+        "hi": "टोपी पहिरे माला पहिरे, छाप तिलक अनुमाना।\nसाखी शब्द गावत भूले, आतम खबर न जाना॥",
+        "tr": "Topi pahire maala pahire, chhaap tilak anumaana.\nSaakhi shabd gaavat bhoole, aatam khabar na jaana.",
+        "en": "Cap and rosary, sect-mark and sign, they wear every emblem; they sing the sacred verses by heart, yet have no news of their own Self.",
+        "note": "One can memorise every song of awakening and still sleep. Knowledge worn as costume is not knowing; the only news worth having is of the one wearing the costume.",
+        "note_hi": "जागृति के सभी गीत याद हों और आत्मा की ख़बर न हो — यह सबसे बड़ा विरोधाभास है।"
+      },
+      {
+        "hi": "घर घर मंतर देत फिरत हैं, महिमा के अभिमाना।\nगुरुवा सहित सिष्य सब बूड़े, अंत काल पछिताना॥",
+        "tr": "Ghar ghar mantar det phirat hain, mahima ke abhimaana.\nGuruva sahit sishya sab boode, ant kaal pachhitaana.",
+        "en": "House to house they hand out mantras, drunk on their own glory; guru and disciple drown together, and repent only at the very end.",
+        "note": "A teaching given to inflate the teacher cannot free the taught. Where the guide is still bound to his own image, both sink.",
+        "note_hi": "जो शिष्य को बाँधे और ख़ुद भी बँधा हो, वह मुक्ति नहीं दे सकता।"
+      },
+      {
+        "hi": "कहे कबीर सुनो भाई साधो, इन सब मरम भुलाना।\nकेतिक कहों कहा नहिं मानैं, सहज सहज समाना॥",
+        "tr": "Kahe Kabir suno bhai saadho, in sab maram bhulaana.\nKetik kahon kaha nahin maanain, sahaj sahaj samaana.",
+        "en": "Kabir says: listen, O seekers, every one of them has forgotten the secret. How much can I say to those who will not hear? Truth is simple, and settles only in the simple.",
+        "note": "The secret was never hidden; it is missed because it is too near and too plain. It cannot be argued into anyone. It dawns by itself, sahaj, once the noise of self-making quiets.",
+        "note_hi": "सत्य छुपा नहीं है। वह इसलिए नहीं मिलता क्योंकि बहुत क़रीब है। सहज होने से ही मिलता है।"
+      }
+    ]
+  },
+  {
+    "slug": "jagat-nata",
+    "title": "Jagat Mein Kaisa Nata Re",
+    "sub": "What Kinship Is This World?",
+    "meta": [
+      [
+        "Lyrics",
+        "Sant Kabir Das"
+      ],
+      [
+        "Artists",
+        "Aabhas-Shreyas"
+      ]
+    ],
+    "listen": "https://youtu.be/RvG8E3mI1UU",
+    "bridge": "The bonds dissolve on seeing. What remains? The certainty that everything in this village has the same ending.",
+    "bridge_hi": "बंधन दिख गए। अब क्या बचा? यह यक़ीन कि इस गाँव की एक ही मंज़िल है।",
+    "verses": [
+      {
+        "hi": "मन फूला फूला फिरे, जगत में कैसा नाता रे॥",
+        "tr": "Man phoola phoola phire, jagat mein kaisa nata re.",
+        "en": "The mind wanders, swollen with pride. What kind of kinship is this world, really?",
+        "note": "The bonds feel solid only because the mind is puffed up with 'me' and 'mine.' Question the one who owns the relationships, and the ownership begins to come apart.",
+        "note_hi": "जब तक 'मैं' का अहंकार है, बंधन असली लगते हैं। 'मैं' को देखो — बंधन हल्के हो जाएंगे।"
+      },
+      {
+        "hi": "माता कहे यह पुत्र हमारा, बहन कहे वीर मेरा।\nभाई कहे यह भुजा हमारी, नारी कहे नर मेरा॥",
+        "tr": "Mata kahe yah putr hamara, bahan kahe veer mera.\nBhai kahe yah bhuja hamari, nari kahe nar mera.",
+        "en": "Mother: 'my son'. Sister: 'my brother'. Brother: 'my own arm'. Wife: 'my man'.",
+        "note": "Each relation is a claim staked on the same body. You are the screen on which everyone projects a role; not one of the labels is what you actually are.",
+        "note_hi": "हर रिश्ता एक दावा है — 'यह मेरा है।' पर वह 'मैं' कौन है जो दावा करता है?"
+      },
+      {
+        "hi": "पेट पकड़ के माता रोवे, बाँह पकड़ के भाई।\nलिपट झिपट कर तिरिया रोवे, हंस अकेला जाई॥",
+        "tr": "Pet pakad ke mata rove, baanh pakad ke bhai.\nLipat jhipat kar tiriya rove, hans akela jaai.",
+        "en": "The mother clutches her belly and weeps; the brother grips the arm; the wife clings — yet the swan, the soul, departs alone.",
+        "note": "No grip can hold the one who is leaving, because the leaver was never the body being clutched. The hans came alone and goes alone; the company was always a passing scene.",
+        "note_hi": "हंस हमेशा अकेला था। जो उसे पकड़े थे, वे उसे जानते भी नहीं थे।"
+      },
+      {
+        "hi": "चार जना मिल गढ़ी बनाई, चढ़ा काठ की डोली।\nचारों तरफ से आग लगा दी, फूँक दई जस होली॥",
+        "tr": "Char jana mil gadhi banaai, chadha kaath ki doli.\nChaaron taraf se aag laga di, phoonk dai jas holi.",
+        "en": "Four men build the bier; fire is set on every side and it blazes up like Holi.",
+        "note": "The body so fiercely called 'mine' is handed over in minutes and burned like festival wood. What you defended your whole life was never finally yours to keep.",
+        "note_hi": "जिसे जीवनभर 'मेरा' कहा, वह पलों में आग को सौंप दिया गया। जो 'मेरा' था ही नहीं, वह था क्या?"
+      },
+      {
+        "hi": "घर की तिरिया ढूँढन लागी, ढूँढ फिरत चहुँ देसा।\nकहे कबीर सुनो भाई साधो, एक नाम की आशा॥",
+        "tr": "Ghar ki tiriya dhoondhan laagi, dhoondh phirat chahun desa.\nKahe Kabir suno bhai saadho, ek naam ki aasha.",
+        "en": "The wife searches every direction for him in vain. Kabir says: rest your hope in the one Name alone.",
+        "note": "She searches outwardly for what was never a body to begin with. Kabir turns the search inward: release the hope pinned on the perishable, and let it rest on the one deathless Reality.",
+        "note_hi": "जो ढूंढ रही है वह बाहर नहीं है। कबीर उसे भीतर मोड़ते हैं — एक नाम की आशा।"
+      }
+    ]
+  },
+  {
+    "slug": "saadho-murdon",
+    "title": "Saadho, Ye Murdon Ka Gaon",
+    "sub": "This Is a Village of the Dead",
+    "meta": [
+      [
+        "Lyrics",
+        "Sant Kabir Das"
+      ],
+      [
+        "Artists",
+        "Aabhas-Shreyas"
+      ]
+    ],
+    "listen": "https://youtu.be/uYFutW8vPgY",
+    "bridge": "Not one name survives — not king, not deity, not even the sun. Then who are you, the one watching all this dying? Watch the swan rise.",
+    "bridge_hi": "कोई नाम नहीं बचता। तो तुम कौन हो — जो यह सब देख रहे हो? हंस को उड़ते देखो।",
+    "verses": [
+      {
+        "hi": "माटी कहे कुम्हार से, तू क्या रौंदे मोहे।\nएक दिन ऐसा आएगा, मैं रौंदूँगी तोहे॥\nसाधो रे, यह मुर्दों का गाँव॥",
+        "tr": "Maati kahe kumhaar se, tu kya raunde mohe.\nEk din aisa aayega, main raundoongi tohe.\nSaadho re, yah murdon ka gaon.",
+        "en": "The clay says to the potter: why do you trample me? A day will come when I shall trample you. O seekers, this is a village of the dead.",
+        "note": "The potter shaping the clay forgets he too is clay. Taking yourself to be the maker, the doer, the body-owner, you overlook that the same earth is quietly waiting to reclaim you.",
+        "note_hi": "कुम्हार मिट्टी को रौंदता है, यह भूल कर कि वह भी मिट्टी है। देहाध्यास यही है।"
+      },
+      {
+        "hi": "जोगी मरिहैं, राजा मरिहैं, मरिहैं मुलक के लोग।\nमरिहैं रोगी, मरिहैं भोगी, मरिहैं सब संजोग॥",
+        "tr": "Jogi marihain, raja marihain, marihain mulak ke log.\nMarihain rogi, marihain bhogi, marihain sab sanjog.",
+        "en": "The yogi dies, the king dies, the whole land dies; the sick die, the pleasure-seeker dies, and every union dies.",
+        "note": "Renouncer and ruler, ascetic and indulger, the same end meets them all. If every joining must end, what in this gathering is worth calling 'mine'?",
+        "note_hi": "त्यागी और भोगी — दोनों का एक ही अंत। जो मिलन टूटना ही है, उसे 'अपना' कैसे कहें?"
+      },
+      {
+        "hi": "चंदा मरिहैं, सूरज मरिहैं, मरिहैं धरती काँप।\nचौदह भुवन के चौधरी मरिहैं, इन्हों की का साख॥",
+        "tr": "Chanda marihain, suraj marihain, marihain dharti kaanp.\nChaudah bhuvan ke chaudhari marihain, inhon ki ka saakh.",
+        "en": "The moon dies, the sun dies, the trembling earth dies; the lords of the fourteen worlds die. What standing have they?",
+        "note": "If sun, moon and earth are passing, no power outside you is permanent enough to lean on. Only the witness of all this rising and falling is itself unmoved.",
+        "note_hi": "सूरज-चाँद भी मिटते हैं। फिर बाहर किसका सहारा? जो इन्हें देख रहा है, वही अचल है।"
+      },
+      {
+        "hi": "अठारह सिद्धि मरिहैं, दसहुँ मरिहैं,\nतैंतीस कोटि देव मरिहैं, बड़ी काल की बाजी॥",
+        "tr": "Atthaarah siddhi marihain, dashahun marihain,\ntaintees koti dev marihain, badi kaal ki baazi.",
+        "en": "The eighteen powers die, the ten die, the thirty-three crore gods die. Such is the grand game of Time.",
+        "note": "Even attainments and deities fall within Time's play. Whatever can be gained can be lost; only that which was never gained — your own being — stands outside the game.",
+        "note_hi": "सिद्धियाँ और देवता — सब काल के खेल में हैं। जो खेल से बाहर है, वही तुम हो।"
+      },
+      {
+        "hi": "नाम अमर रहत है, दूजो सब नश्वर है।\nकहे कबीरा सुनो रे बंदे, भटक मनहु ना होय॥\nसाधो रे, यह मुर्दों का गाँव॥",
+        "tr": "Naam amar rahat hai, dujo sab nashwar hai.\nKahe Kabira suno re bande, bhatak manhu na hoye.\nSaadho re, yah murdon ka gaon.",
+        "en": "The Name alone stays deathless; all else perishes. Kabir says: O soul, do not let the mind wander and stray.",
+        "note": "One thing does not die: the formless Reality. To stop wandering is to stop chasing the perishable and rest as the one deathless awareness you already are.",
+        "note_hi": "एक ही चीज़ अमर है: नाम, वह निराकार सत्य। भटकना बंद करो — तुम जो हो, वह पहले से है।"
+      }
+    ]
+  },
+  {
+    "slug": "hans-akela",
+    "title": "Ud Jaayega Hans Akela",
+    "sub": "The Swan Will Fly Off Alone",
+    "meta": [
+      [
+        "Film",
+        "Qala (2022)"
+      ],
+      [
+        "Singer",
+        "Shahid Mallya"
+      ],
+      [
+        "Music",
+        "Amit Trivedi"
+      ],
+      [
+        "Lyrics",
+        "Traditional, Sant Kabir"
+      ]
+    ],
+    "listen": "https://youtu.be/oJ7WJTSzDDg",
+    "bridge": "The swan leaves everything and has nowhere to land. Midstream, the small self runs out of answers. Something deeper is needed.",
+    "bridge_hi": "हंस सब छोड़ता है, फिर भी ठौर नहीं। मझधार में अहंकार के पास कोई जवाब नहीं बचता।",
+    "verses": [
+      {
+        "hi": "उड़ जाएगा हंस अकेला, जग दर्शन का मेला॥",
+        "tr": "Ud jaayega hans akela, jag darshan ka mela.",
+        "en": "The swan will fly off alone; this world is only a passing fair.",
+        "note": "The hans is the soul, pure awareness; the mela is the spectacle it came to watch. You are the witness at the fair, not the stalls and the crowd — and the witness leaves the way it came, alone.",
+        "note_hi": "हंस दर्शक है, मेला नहीं। जो देखता है वह जाता है; जो दिखता है, बिखर जाता है।"
+      },
+      {
+        "hi": "जब होवेगी उमर पूरी, तब छूटेगी हुकुम हुजूरी।\nजम के दूत बड़े मजबूत, जम से बड़ा झमेला॥",
+        "tr": "Jab hovegi umar poori, tab chhootegi hukum hujooree.\nJam ke doot bade majboot, jam se bada jhamela.",
+        "en": "When the lifespan is complete, all command and service fall away; Death's messengers are powerful, and the entanglement with Death is great.",
+        "note": "At the end, every role and rank you served is released in an instant. The tangle with Death is only as tight as your grip on being someone; loosen the grip now, and there is nothing left for Death to seize.",
+        "note_hi": "जितनी पकड़ है 'किसी' होने की, उतनी ही यम से उलझन। पकड़ अभी छोड़ो — तो यम के लिए क्या बचा?"
+      },
+      {
+        "hi": "उड़ जाएगा हंस अकेला॥",
+        "tr": "Ud jaayega hans akela.",
+        "en": "The swan will fly off, alone.",
+        "note": "Kabir lets the refrain fall like a bell. Not a threat but a reminder: live as the one who can leave lightly, holding nothing as finally your own.",
+        "note_hi": "यह डर नहीं, याद दिलाना है: ऐसे जियो कि जाते समय हाथ खाली हों।"
+      }
+    ]
+  },
+  {
+    "slug": "naiyya-manjhdhaar",
+    "title": "Naiyya Padi Manjhdaar",
+    "sub": "The Boat Caught Midstream",
+    "meta": [
+      [
+        "Tradition",
+        "Nirgun bhajan"
+      ],
+      [
+        "Theme",
+        "The cry for the Guru's grace"
+      ]
+    ],
+    "listen": "https://youtu.be/pQQwsGmP4iQ",
+    "bridge": "Grace answered the cry. Now comes the deepest passage: to die while still breathing.",
+    "bridge_hi": "अरज़ सुनी गई। अब आती है सबसे गहरी डुबकी: साँस लेते हुए मर जाना।",
+    "verses": [
+      {
+        "hi": "नैया पड़ी मझधार, गुरु बिन कैसे लगे पार॥",
+        "tr": "Naiyya padi manjhdhaar, guru bin kaise lage paar.",
+        "en": "The boat is stranded midstream; without the Guru, how does one reach the shore?",
+        "note": "The river is the world, the boat is this life, and midstream is exactly where the seeker wakes: too far to turn back, unable to cross alone. The Guru here is not a person but the living truth that ferries you past yourself.",
+        "note_hi": "मझधार में ही पता चलता है कि नाव मैंने नहीं बनाई। तभी सच्ची शरण शुरू होती है।"
+      },
+      {
+        "hi": "मैं अपराधी जन्म-जन्म का, मन में भरा विकार।\nतुम दाता दुख भंजन मेरे, करो संभार॥",
+        "tr": "Main apraadhi janm-janm ka, man mein bhara vikaar.\nTum daata dukh bhanjan mere, karo sambhaar.",
+        "en": "I am an offender of lifetime upon lifetime, my mind brimming with error; You are the giver, the breaker of sorrow, take me into Your care.",
+        "note": "The offences of many births are the long habit of taking oneself to be the doer. Owning that helplessness honestly is itself the turning point; the mind that admits it cannot fix itself is finally open to grace.",
+        "note_hi": "जन्म-जन्म के अपराध का अर्थ है: लंबे समय से खुद को कर्ता माना। यह स्वीकार करना ही मोड़ है।"
+      },
+      {
+        "hi": "अंतर्यामी एक तुम ही हो, जीवन के आधार।\nजो तुम छोड़ो हाथ प्रभु जी, कौन उतारे पार॥",
+        "tr": "Antaryaami ek tum hi ho, jeevan ke aadhaar.\nJo tum chhodo haath prabhu ji, kaun utaare paar.",
+        "en": "You alone are the indweller, the ground of all life; if You let go of my hand, O Lord, who will carry me across?",
+        "note": "Antaryaami, the one who dwells within. The seeker discovers the rescuer was never outside; the very awareness crying for help is itself the shore it is looking for.",
+        "note_hi": "अंतर्यामी बाहर नहीं है। जो ढूंढ रहा है, वही किनारा है।"
+      },
+      {
+        "hi": "साहिब तुम मत भूलना, लाख लोग मिल जाएँ।\nहमसे तुम्हरे बहुत हैं, तुम सो हमरो नाहिं॥",
+        "tr": "Sahib tum mat bhoolna, laakh log mil jaayen.\nHamse tumhare bahut hain, tum so hamro naahin.",
+        "en": "O Lord, do not forget me, though a hundred thousand come to You. You have countless others; I have no other but You.",
+        "note": "Once everything else is seen as passing, the heart narrows on its own to the single thing that does not pass. God has many; the seeker has only God.",
+        "note_hi": "लाखों में भी प्रभु तुम्हें नहीं भूलते। तुम उन्हें भूल जाते हो — बस यही अंतर है।"
+      },
+      {
+        "hi": "जो मैं पूत कपूत हूँ, कहाँ पिता की लाज।\nगुरु बिन कैसे लगे पार, नैया पड़ी मझधार॥",
+        "tr": "Jo main poot kapoot hoon, kahaan pita ki laaj.\nGuru bin kaise lage paar, naiyya padi manjhdhaar.",
+        "en": "Even if I am an unworthy son, does it diminish the father's honour? Without the Guru, how to cross? The boat lies caught midstream.",
+        "note": "A child's failing does not diminish the parent; grace is not earned by being worthy. The ego's last defence, 'I am too flawed to be saved,' is just one more way of staying in charge. Let even that go.",
+        "note_hi": "कृपा योग्यता नहीं देखती। 'मैं बहुत बुरा हूँ' — यह भी अहंकार का आखिरी हथियार है।"
+      }
+    ]
+  },
+  {
+    "slug": "nirbhau-nirvair",
+    "title": "Nirbhau Nirvair",
+    "sub": "Without Fear, Without Enmity",
+    "meta": [
+      [
+        "Film",
+        "Qala (2022)"
+      ],
+      [
+        "Singer",
+        "Shahid Mallya"
+      ],
+      [
+        "Music",
+        "Amit Trivedi"
+      ],
+      [
+        "Lyrics",
+        "Anvitaa Dutt, on Kabir's dohas"
+      ]
+    ],
+    "listen": "https://youtu.be/hKv8FqBSkRk",
+    "bridge": "The one who feared and hated is gone. In that open ground, something quietly takes root.",
+    "bridge_hi": "जो डरता था और वैर रखता था — वह गया। उस खुली ज़मीन में कुछ और अंकुरित होता है।",
+    "verses": [
+      {
+        "hi": "निर्भउ निरवैर॥",
+        "tr": "Nirbhau Nirvair.",
+        "en": "Without fear. Without enmity.",
+        "note": "Both fear and hatred need a separate 'I' to protect. Nirbhau is not courage but the absence of a self that can be threatened. Nirvair is not forgiveness but the absence of an 'other' to oppose.",
+        "note_hi": "निर्भय वही है जिसने देखा कि वह शरीर नहीं है। डर हमेशा 'मैं' को खोने का डर है।"
+      },
+      {
+        "hi": "ऐसी मरनी जो मरे, बहुरि न मरना होय॥",
+        "tr": "Aisi marni jo mare, bahuri na marna hoye.",
+        "en": "Die such a death once, and you will never have to die again.",
+        "note": "This is the dying of the ego, not of the body. Drop the false 'I' while alive, and the one who feared death is already gone; what remains was never born and cannot die.",
+        "note_hi": "जीते जी मरना — अहंकार को विदा करना — यही एकमात्र मृत्यु है जो मुक्त करती है।"
+      },
+      {
+        "hi": "कबीरा मरता मरता जग मुआ, मर भी न जाने कोय॥",
+        "tr": "Kabira marta marta jag mua, mar bhi na jaane koye.",
+        "en": "The whole world dies and dies, yet no one learns how to truly die.",
+        "note": "Everyone dies physically; almost no one dies the single death that liberates. The world clutches its self to the last breath, and so dies in vain, again and again.",
+        "note_hi": "जगत जन्म और मृत्यु में है। कबीर ने अहंकार की मृत्यु का रास्ता दिखाया — वही असली मोक्ष है।"
+      },
+      {
+        "hi": "क्या जाने किव मरेंगे, कैसा मरना होय॥",
+        "tr": "Kya jaane kiv marenge, kaisa marna hoye.",
+        "en": "Who knows how we shall die, or what that dying should truly be?",
+        "note": "The question itself is the practice. To ask sincerely 'how am I to die to myself?' is already to loosen the grip of the one who is asking.",
+        "note_hi": "यह सवाल ही साधना है: कैसे मरूँ? किसे मरना है? ये प्रश्न अहंकार को कमज़ोर करते हैं।"
+      },
+      {
+        "hi": "जे कर साहिब मनहु न विसरे, तां सहज मरना होय॥",
+        "tr": "Je kar Sahib manhu na visre, taan sahaj marna hoye.",
+        "en": "If the Lord is never let slip from the mind, then this dying becomes effortless, natural.",
+        "note": "When attention rests in the Real, letting go of the small self costs nothing. Remembrance does the work; the ego loosens on its own, sahaj, without a struggle.",
+        "note_hi": "जब प्रभु की याद बनी रहे, तो छोड़ना कोई क्रिया नहीं रहती — सहज होता जाता है।"
+      },
+      {
+        "hi": "किथे तुरदा लबदा फिरदा, साया नाल साहिब दा॥\nजीण तों पहले मुकदा क्यों वे, जुड़न तों ज़्यादा टूटदा॥",
+        "tr": "Kithe turda labda phirda, saaya naal Sahib da.\nJeen ton pehle mukda kyun ve, judan ton zyada tutda.",
+        "en": "Where do you wander searching? The Lord's shadow walks always with you. Why does it end before it begins to live? It breaks more than it joins.",
+        "note": "These lines from the recording weave Punjabi imagery into Kabir's framework: the divine presence you seek is already the shadow you walk in. And the heart that breaks before it can love is the ego's fear of being seen.",
+        "note_hi": "जो ढूंढ रहे हो, वह तुम्हारे साथ चल रहा है। और जो दिल जीने से पहले ही टूटता है, वह अहंकार का डर है।"
+      },
+      {
+        "hi": "हर धुन गाओ निर्गुण निर्भउ, हर धुन सुन निर्गुण निरवैर॥",
+        "tr": "Har dhun gaao nirgun nirbhau, har dhun sun nirgun nirvair.",
+        "en": "Sing every melody to the formless, fearless one; hear every melody of the formless, without enmity.",
+        "note": "An invitation to dissolve into the formless. Not a technique but a shift of identity: from the one who is afraid to the one who is the song itself.",
+        "note_hi": "निर्गुण में लीन हो जाओ। यह तकनीक नहीं, पहचान बदलने की बात है — डरने वाले से स्वयं गीत बन जाने की।"
+      }
+    ]
+  },
+  {
+    "slug": "sahib-sau-preet",
+    "title": "Sahib So Preet",
+    "sub": "Fall in Love with the Lord",
+    "meta": [
+      [
+        "Lyrics",
+        "Sant Kabir Das"
+      ],
+      [
+        "Artists",
+        "Aabhas-Shreyas"
+      ]
+    ],
+    "listen": "https://youtu.be/86Uayk3EL0o",
+    "bridge": "Love is found. And now the traveller asks nothing more: drive gently, O Lord. I am yours.",
+    "bridge_hi": "प्रेम मिला। और अब यात्री कुछ नहीं माँगता — बस यही: धीरे चलो, प्रभु। मैं तुम्हारा हूँ।",
+    "verses": [
+      {
+        "hi": "मन रे तू कर ले साहिब सो प्रीत॥",
+        "tr": "Mann re tu kar le Sahib so preet.",
+        "en": "O mind, fall in love with the Lord.",
+        "note": "Not a ritual to perform but a turning of the heart. Love aimed at the Real loosens love's grip on the unreal; a mind that adores truth stops chasing shadows.",
+        "note_hi": "प्रेम एक मोड़ है। जब मन असली की तरफ मुड़े, नकली अपने आप छूटता है।"
+      },
+      {
+        "hi": "शरण आवे सो सब ही उबारे, ऐसी उनकी रीत॥",
+        "tr": "Sharan aave so sab hi ubaare, aisi unki reet.",
+        "en": "Whoever comes to His refuge is carried across; such is His way.",
+        "note": "Surrender is not weakness; it is the ego admitting it cannot save itself. The moment the small self stops steering, what was already free comes into view.",
+        "note_hi": "जो खुद को असहाय जानता है, उसी के लिए शरण का द्वार खुलता है।"
+      },
+      {
+        "hi": "सुंदर देह देख मत भूलो, जैसे तृण पर सीत॥",
+        "tr": "Sundar deh dekh mat bhoolo, jaise trin par seet.",
+        "en": "Do not be deceived by a beautiful body; it is like dew upon a blade of grass.",
+        "note": "Beauty is real but momentary. To stake your identity on the body is to build a home on something already evaporating.",
+        "note_hi": "देह सुंदर है, पर ओस की तरह। उसे देखो, आनंद लो — पर उसमें 'मैं' मत डालो।"
+      },
+      {
+        "hi": "काची देह आखिर गिर पड़ी है, ज्यों बारू की भीत॥",
+        "tr": "Kachi deh aakhir gir padi hai, jyon baaru ki bheet.",
+        "en": "This unbaked body finally falls, like a wall built of sand.",
+        "note": "A wall of sand needs no enemy to topple it; it collapses by its nature. Knowing the body is such a wall, you stop mistaking it for the one who watches it crumble.",
+        "note_hi": "रेत की दीवार को किले की तरह बचाना — यही देहाध्यास है।"
+      },
+      {
+        "hi": "ऐसो जनम बहुरि नहीं पैहौ, जात उमर सब बीत॥",
+        "tr": "Aiso janm bahuri nahi paihau, jaat umar sab beet.",
+        "en": "Such a birth will not come again; your years are slipping away while you wait.",
+        "note": "The rare chance is not to achieve more, but to wake before the time is spent. Each postponed day is borrowed from a fund that does not refill.",
+        "note_hi": "यह जन्म दोबारा नहीं मिलेगा। जागने की जल्दी करो, न पाने की।"
+      },
+      {
+        "hi": "दास कबीरा चढ़े गढ़ पर, दिए नगाड़ा जीत॥",
+        "tr": "Daas Kabira chadhe gadh par, diye nagaada jeet.",
+        "en": "Kabir the servant has climbed the fort and sounded the drum of victory.",
+        "note": "The fort is the body-mind; the victory is seeing through it. When the false self is conquered there is no triumph over others, only the quiet drumbeat of one who is finally free.",
+        "note_hi": "किला शरीर-मन है। जीत तब है जब इसे देख लिया। यह जीत किसी की हार नहीं — मुक्ति है।"
+      }
+    ]
+  },
+  {
+    "slug": "ram-gaadi-wale",
+    "title": "Ram Gaadi Wale",
+    "sub": "O Keeper of Ram's Cart",
+    "meta": [
+      [
+        "Opening doha",
+        "Sant Kabir Das"
+      ],
+      [
+        "Tradition",
+        "Folk / Nirgun bhajan"
+      ]
+    ],
+    "listen": "https://youtu.be/n5QC3TVRww0",
+    "verses": [
+      {
+        "hi": "कबीरा कुत्ता राम का, मुतिया मेरा नाम।\nगले राम की जेवड़ी, जित खींचे तित जाऊँ॥",
+        "tr": "Kabira kutta Ram ka, mutiya mera naam.\nGale Ram ki jevdi, jit kheenche tit jaaun.",
+        "en": "Kabir is Ram's dog, 'Mutiya' is my name; around my neck is Ram's leash, and wherever He pulls, there I go.",
+        "note": "The proud 'I' that insists on steering its own life is set down completely. To be the Lord's dog is to let the leash of the Real, not the ego's wanting, choose the direction. A strange freedom hides inside that surrender.",
+        "note_hi": "अहंकार की मृत्यु का सबसे प्रेमपूर्ण रूपक। जो पट्टा है, वह बंधन नहीं — दिशा है।"
+      },
+      {
+        "hi": "ज़रा धीरे धीरे गाड़ी हाँको, मेरे राम गाड़ी वाले॥",
+        "tr": "Zara dheere dheere gaadi haanko, mere Ram gaadi waale.",
+        "en": "Drive the cart gently, slowly, O my keeper of Ram's cart.",
+        "note": "The cart is the body, the journey is this life, and the driver is the Lord. The plea to go slowly is the heart asking to stay awake for the passage, to travel it consciously rather than be dragged through asleep.",
+        "note_hi": "धीरे चलो — यह आलस नहीं, जागरूकता की अरज़ है। जो जल्दी में है, वह देखता नहीं।"
+      },
+      {
+        "hi": "गाड़ी मोरी अजब रंगीली, पहिया लाल गुलाब।\nहाँकनवाली छैल छबीली, मोरा बैठनवालो राम॥",
+        "tr": "Gaadi mori ajab rangeeli, pahiya laal gulaab.\nHaankanwaali chhail chhabeeli, mora baithanwaalo Ram.",
+        "en": "My cart is wondrously coloured, its wheels rose-red; graceful is the one who drives it, and the one seated within is Ram.",
+        "note": "The body is a bright vehicle, but the worth is in the passenger. Remember who truly rides inside and the cart's colours can be enjoyed without being mistaken for the self.",
+        "note_hi": "गाड़ी रंगीन है, पर यात्री राम है। शरीर को पहचानो — उसमें खो मत जाओ।"
+      },
+      {
+        "hi": "गाड़ी फँस गई रेत में, हमारी मंज़िल बड़ी है दूर।\nधर्मी धर्मी पार उतर गए, पापी चकनाचूर॥",
+        "tr": "Gaadi phans gayi ret mein, hamari manzil badi hai door.\nDharmi dharmi paar utar gaye, paapi chaknachoor.",
+        "en": "The cart is stuck in the sand, and the destination is far; the true-hearted have crossed, while the heedless are shattered.",
+        "note": "The sand is the pull of craving. 'True-hearted' is not the rule-follower but the one whose attention stays awake; what shatters the rest is less sin than sheer forgetfulness.",
+        "note_hi": "रेत में फंसना — तृष्णा का काम है। जागा हुआ इसे देखता है और रुकता नहीं।"
+      },
+      {
+        "hi": "देश-विदेश के वैद बुलाए, लाए जड़ी और बूटी।\nजड़ी-बूटी तेरे काम न आई, राम के घर की टूटी॥",
+        "tr": "Desh-videsh ke vaid bulaaye, laaye jadi aur booti.\nJadi-booti tere kaam na aayi, Ram ke ghar ki tooti.",
+        "en": "Healers came from near and far with every herb and root; but no herb could help, for the summons had come from Ram's own house.",
+        "note": "When the cart's time is up, no outer remedy can hold it. The call home cannot be bargained with, and need not be feared by the one who was never only the cart.",
+        "note_hi": "बुलावा आया तो कोई जड़ी-बूटी काम न आई। शरीर उधार था, वापस करना था।"
+      },
+      {
+        "hi": "बिलख बिलख के तिरिया रोवे, टूट गई मोरी जोड़ी।\nकहे कबीरा सुनो भाई साधो, जिन जोड़ी तिन तोड़ी॥",
+        "tr": "Bilakh bilakh ke tiriya rove, toot gayi mori jodi.\nKahe Kabira suno bhai saadho, jin jodi tin todi.",
+        "en": "The wife weeps, 'my pairing is broken'; Kabir says: the One who joined is the One who parts.",
+        "note": "Every union is on loan from the same hand that will reclaim it. See that the Joiner is also the Parter, and love can remain while the grasping falls away.",
+        "note_hi": "जो जोड़ता है वही तोड़ता है। इस रहस्य को जान लो — प्रेम में से पकड़ निकल जाती है।"
+      }
+    ]
+  }
+],
+
+  glossary: [
+    {t:"Maya",  d:"माया",   m:"The illusion of the material world, breeding attachment and forgetfulness of the eternal."},
+    {t:"Nirgun",d:"निर्गुण", m:"The formless, attribute-less Divine, beyond names, images, and rituals."},
+    {t:"Naam",  d:"नाम",    m:"The divine name or essence, realized through deep awareness, not mere chanting."},
+    {t:"Shabd", d:"शब्द",   m:"The eternal sound or vibration that connects the seeker to the Divine."},
+    {t:"Hans",  d:"हंस",    m:"The soul, the swan, that journeys alone toward liberation."},
+    {t:"Jogi",  d:"जोगी",   m:"A true practitioner, detached from worldliness and ego."},
+    {t:"Guru",  d:"गुरु",   m:"A teacher, not only a person, but the inner light that guides to awakening."},
+    {t:"Prem",  d:"प्रेम",  m:"Divine love, pure, unconditional, ego-less."},
+    {t:"Bhakti",d:"भक्ति",  m:"Devotion and surrender to the Divine; the path of love and union."},
+    {t:"Satya", d:"सत्य",   m:"Truth, not mere fact, but the eternal reality that never changes."},
+    {t:"Kaal",  d:"काल",    m:"Time, or death; the force that consumes all things temporal."},
+    {t:"Man",   d:"मन",     m:"The mind, restless, drawn to illusion, yet capable of realization."},
+    {t:"Ahankar · Ego", d:"अहंकार", m:"Not arrogance, as the word is usually heard, but the deeper error: taking yourself to be only the body and mind, a separate 'I' cut off from the whole. The knot Kabir spends his life untying."},
+    {t:"Dehadhyas", d:"देहाध्यास", m:"The reflex of identifying with the body, the silent assumption, 'I am this flesh.' From it grow fear, possessiveness, and the dread of death."},
+    {t:"Atman · The Self", d:"आत्मा", m:"The true Self: pure awareness, untouched by birth or death. Not what you have or how you look, but the one who is aware of all of it."},
+    {t:"Jeev", d:"जीव", m:"The individual soul that believes itself separate and bound, the Self that has forgotten its own vastness and taken itself to be small."},
+    {t:"Dvaita · Duality", d:"द्वैत", m:"Seeing in twos: self and other, me and world, sacred and profane. The split view from which conflict and craving arise."},
+    {t:"Advaita · Non-duality", d:"अद्वैत", m:"Not-two. The recognition that the Self and the Absolute were never separate, the seer, the seen, and the seeing are one."},
+    {t:"Brahman", d:"ब्रह्म", m:"The formless Absolute; the single reality beneath every name and form. Kabir's 'Sahib' and 'Ram' point here, beyond any image."},
+    {t:"Sakshi · The Witness", d:"साक्षी", m:"The watching awareness that sees thought, feeling, and world pass by without being moved. To rest as the witness is to step out of the story."},
+    {t:"Viveka", d:"विवेक", m:"Discernment, the steady ability to tell the real from the unreal, the lasting from the passing. The first instrument of self-inquiry."},
+    {t:"Vairagya", d:"वैराग्य", m:"Dispassion, not coldness, but freedom from being pulled by the transient. The lightness of one who has seen through maya."},
+    {t:"Moksha · Mukti", d:"मोक्ष", m:"Liberation: release from the cycle of birth and death, and from the false self that feared them. Not a place reached, but a knot undone."},
+    {t:"Sahaj", d:"सहज", m:"The natural, effortless state, presence without striving. Kabir's ideal: awakening lived in the ordinary, not escaped into."},
+    {t:"Sunya", d:"शून्य", m:"The fertile void, the emptiness left once the false self is seen through, in which the real quietly appears."},
+    {t:"Sumiran", d:"सुमिरन", m:"Remembrance, holding the divine in continuous, living awareness, breath by breath, rather than mechanical repetition."}
+  ],
+
+  /* ---- SUPPORT (dakshina) · replace the two placeholders below ---- */
+  support:{
+    enabled:true,
+    headline:"If a line here stayed with you",
+    message:"This book is offered freely. If something in it moved you, you're welcome to give as you feel.",
+    useOfFunds:"Whatever comes in first keeps this app running, and the rest is passed on to nonprofits doing real good in the world, such as <a href=\"https://peepalfarm.org\" target=\"_blank\" rel=\"noopener\">Peepal Farm</a> and the <a href=\"https://acharyaprashant.org/en/prashantadvait-foundation\" target=\"_blank\" rel=\"noopener\">PrashantAdvait Foundation</a>.",
+    intlLabel:"Support from anywhere →",
+    intlUrl:"https://ko-fi.com/yourpage",     // ← Ko-fi / Razorpay / Stripe link
+    fine:"Entirely optional. The book stays free for everyone."
+  },
+
+  /* ---- HARD COPY request ---- */
+  hardcopy:{
+    enabled:true,
+    headline:"Hold It in Your Hands",
+    message:"A printed edition of these eight songs — each verse sitting beside its meaning, each song carrying a way to hear it sung. Something you can hold, return to, and share.",
+    gift:"Beautiful enough to keep. Meaningful enough to give. A gift that carries a song inside every page.",
+    email:"sachindhiman1@live.in",
+    buttonLabel:"Request a hard copy →"
+  }
+};
+
+/* ===========================================================
+   RENDERING ,  builds the page from BOOK. No need to edit.
+   =========================================================== */
+const $ = (s,el=document)=>el.querySelector(s);
+const nl2br = s => s.replace(/\n/g,"<br>");
+
+// warp threads on cover
+(function(){
+  const w = $("#warp"); const n = Math.min(40, Math.floor(window.innerWidth/26));
+  for(let i=0;i<n;i++){ const s=document.createElement("span");
+    s.style.left = (i/(n-1)*100)+"%"; s.style.opacity = 0.25+Math.random()*0.5; w.appendChild(s); }
+})();
+
+// core teachings
+$("#teach").innerHTML = BOOK.teachings.map(t=>`
+  <div class="row"><div class="term">${t.term}<span class="d">${t.d}</span></div>
+  <div class="def">${t.def}</div></div>`).join("");
+
+// chapters
+$("#book").innerHTML = BOOK.chapters.map((c,i)=>{
+  const alt = i%2 ? "alt" : "";
+  const chips = c.meta.map(m=>`<span class="chip"><b>${m[0]}:</b> ${m[1]}</span>`).join("");
+  const verses = c.verses.map((v,vi)=>`
+    <article class="verse">
+      <div class="knot">${vi+1}</div>
+      <p class="hi">${nl2br(v.hi)}</p>
+      <div class="en-group">
+        <p class="tr">${nl2br(v.tr)}</p>
+        <p class="en">${nl2br(v.en)}</p>
+        <p class="note"><span class="nlabel">Reflection</span>${v.note}</p>
+      </div>
+      ${v.note_hi ? `<p class="note-hi"><span class="nlabel" style="font-family:var(--serif);letter-spacing:.18em;font-size:.62rem;color:var(--marigold);display:block;margin-bottom:.2rem">चिंतन</span>${v.note_hi}</p>` : ''}
+    </article>`).join("");
+  const bridge = (i < BOOK.chapters.length-1 && c.bridge) ? `
+    <div class="chap-bridge reveal">
+      <p class="bridge-line">${c.bridge}</p>
+      ${c.bridge_hi ? `<p class="bridge-hi">${c.bridge_hi}</p>` : ''}
+    </div>` : '';
+  return `
+  <section class="band ${alt} chapter" id="${c.slug}">
+    <div class="wrap">
+      <header class="chap-head reveal">
+        <span class="chap-no">Song ${String(i+1).padStart(2,"0")}</span>
+        <h2 class="chap-title">${c.title}</h2>
+        <p class="chap-sub">${c.sub}</p>
+        <div class="chap-meta">${chips}
+          <a class="chip play" href="${c.listen}" target="_blank" rel="noopener">▸ Listen</a>
+        </div>
+      </header>
+      <div class="verses">${verses}</div>
+      <div class="chap-divider"><span class="dot">❀</span></div>
+      ${bridge}
+    </div>
+  </section>`;
+}).join("");
+
+// glossary
+$("#gloss").innerHTML = BOOK.glossary.map(g=>`
+  <div class="gcard"><h3>${g.t}<span class="d">${g.d}</span></h3><p>${g.m}</p></div>`).join("");
+
+// song index
+$("#index").innerHTML = BOOK.chapters.map((c,i)=>`
+  <a class="song" href="${c.listen}" target="_blank" rel="noopener">
+    <span class="si-no">${String(i+1).padStart(2,"0")}</span>
+    <span class="si-name">${c.title}<small>${c.sub}</small></span>
+    <span class="si-go">Listen ▸</span>
+  </a>`).join("");
+
+// contents drawer
+$("#tocNav").innerHTML =
+  `<a href="#about"><span class="n">·</span>The Eternal Voice</a>` +
+  BOOK.chapters.map((c,i)=>`<a href="#${c.slug}"><span class="n">${String(i+1).padStart(2,"0")}</span>${c.title}<small>${c.sub}</small></a>`).join("") +
+  `<a href="#glossary"><span class="n">·</span>Glossary</a>` +
+  `<a href="#listen"><span class="n">·</span>Hear every song</a>` +
+  `<a href="#why"><span class="n">·</span>Why I wrote this book</a>`;
+
+// support / dakshina
+(function(){
+  const S = BOOK.support;
+  if(!S || !S.enabled) return;
+  const sec = $("#support"); sec.hidden = false;
+  $("#s-head").textContent = S.headline;
+  $("#s-msg").textContent  = S.message;
+  $("#s-use").innerHTML    = S.useOfFunds || "";
+  $("#s-fine").textContent = S.fine;
+  const intl = $("#intlBtn"); intl.href = S.intlUrl; intl.textContent = S.intlLabel;
+})();
+
+// hard-copy request
+(function(){
+  const H = BOOK.hardcopy;
+  if(!H || !H.enabled) return;
+  $("#hardcopy").hidden = false;
+  $("#hc-head").textContent = H.headline;
+  $("#hc-msg").textContent  = H.message;
+  if(H.gift){ const g=document.createElement("p"); g.className="hc-gift"; g.textContent=H.gift; $("#hc-msg").after(g); }
+  const pills = [["📵","Plays without internet"],["🎁","Made to be gifted"],["📖","Eight songs, one journey"]];
+  const row = document.createElement("div"); row.className="hc-pills";
+  pills.forEach(([ic,txt])=>{ const s=document.createElement("span"); s.className="hc-pill"; s.textContent=ic+" "+txt; row.appendChild(s); });
+  $("#hc-msg").after(row);
+  $("#hc-email").textContent = H.email;
+  const subj = encodeURIComponent("Hard copy request, Songs of the Soul");
+  const body = encodeURIComponent("Hi Sachin,\n\nI'd love a printed copy of Songs of the Soul. Please keep me posted.\n\nName:\nCity / Country:\nHow many copies:\n\nThank you.");
+  const b = $("#hcBtn"); b.href = `mailto:${H.email}?subject=${subj}&body=${body}`;
+  b.textContent = H.buttonLabel;
+})();
+
+// reader language toggle (Both · हिंदी · English), in-memory only
+const langs=["both","hi","en"], langLabel={both:"हि·En", hi:"हिंदी", en:"English"};
+let liIdx=0; document.documentElement.setAttribute("data-lang","both");
+$("#langBtn").onclick=()=>{ liIdx=(liIdx+1)%langs.length; const v=langs[liIdx];
+  document.documentElement.setAttribute("data-lang",v); $("#langBtn").textContent=langLabel[v]; };
+
+/* ----- interactions ----- */
+// reveal on scroll
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target);} });
+},{threshold:0.04, rootMargin:"0px 0px 12% 0px"});
+document.querySelectorAll(".verse, .reveal, .chap-head").forEach(el=>io.observe(el));
+
+// progress bar
+const prog = $("#progress");
+addEventListener("scroll",()=>{
+  const h = document.documentElement;
+  const p = h.scrollTop/(h.scrollHeight-h.clientHeight)*100;
+  prog.style.width = p+"%";
+},{passive:true});
+
+// drawer
+const drawer=$("#drawer"), scrim=$("#scrim");
+const openD=()=>{drawer.classList.add("open");scrim.classList.add("open");};
+const closeD=()=>{drawer.classList.remove("open");scrim.classList.remove("open");};
+$("#tocBtn").onclick=openD; $("#coverToc").onclick=openD;
+$("#closeDrawer").onclick=closeD; scrim.onclick=closeD;
+$("#tocNav").addEventListener("click",e=>{ if(e.target.closest("a")) closeD(); });
+addEventListener("keydown",e=>{ if(e.key==="Escape") closeD(); });
+
+// begin / to top
+$("#begin").onclick=()=>$("#about").scrollIntoView();
+$("#toTop").onclick=()=>$("#top").scrollIntoView();
+
+// theme toggle (Khadi <-> Indigo Vat), in-memory only
+const themeBtn=$("#themeBtn");
+let _isLight=false;
+themeBtn.onclick=()=>{
+  _isLight=!_isLight;
+  if(_isLight){ document.documentElement.setAttribute("data-theme","khadi"); themeBtn.textContent="Dark"; }
+  else{ document.documentElement.removeAttribute("data-theme"); themeBtn.textContent="Khadi"; }
+};
+
+// text size cycle
+const sizes=[1, 1.12, 1.24, 0.92]; let si=0;
+$("#sizeBtn").onclick=()=>{ si=(si+1)%sizes.length;
+  document.documentElement.style.setProperty("--read", sizes[si]); };
+</script>
+</body>
+</html>

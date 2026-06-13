@@ -1,0 +1,16 @@
+# Local dev secrets — NEVER commit this
+.dev.vars
+
+# Wrangler local cache
+.wrangler/
+
+# Node (if you ever add local tooling)
+node_modules/
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
