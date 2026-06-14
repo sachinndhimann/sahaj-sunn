@@ -4,108 +4,106 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Sahaj Sunn · Listen effortlessly</title>
-<meta name="description" content="Sahaj Sunn — Kabir's songs read for meaning, and a self-inquiry operating system to live what they point to.">
+<meta name="description" content="Kabir's songs read for meaning, and a structured reflection tool to pause before reacting.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,300;9..144,0,400;9..144,0,600;9..144,1,400&family=Spectral:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@400;500&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,300;9..144,0,400;9..144,0,600;9..144,1,400&family=Spectral:ital,wght@0,400;0,500;1,400&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
 <style>
-  /* ───────── THEME TOKENS ───────── */
   :root{
-    /* Vat (dark) — default */
-    --bg:#181f33; --bg-2:#202a45; --ink:#edeef8; --ink-soft:#9ba4c6;
-    --indigo:#cdd5f0; --marigold:#e7ad4d; --thread:#5a6898; --line:#2d3d6e;
-    --serif:"Spectral",Georgia,serif; --display:"Fraunces",Georgia,serif;
+    --bg:#181f33;--bg-2:#202a45;--ink:#edeef8;--ink-soft:#9ba4c6;
+    --indigo:#cdd5f0;--marigold:#e7ad4d;--thread:#5a6898;--line:#2d3d6e;
+    --serif:"Spectral",Georgia,serif;--display:"Fraunces",Georgia,serif;
     --deva:"Tiro Devanagari Hindi","Noto Serif Devanagari",serif;
-    --mono:"DM Mono",ui-monospace,monospace;
   }
   html[data-theme="khadi"]{
-    --bg:#f0e8d6; --bg-2:#e8dcc8; --ink:#1e1810; --ink-soft:#5a5038;
-    --indigo:#1e2d52; --marigold:#b87820; --thread:#b8a882; --line:#ccc0a0;
+    --bg:#f0e8d6;--bg-2:#e8dcc8;--ink:#1e1810;--ink-soft:#5a5038;
+    --indigo:#1e2d52;--marigold:#b87820;--thread:#b8a882;--line:#ccc0a0;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{ background:var(--bg); color:var(--ink); font-family:var(--serif);
-    font-size:17px; line-height:1.65; -webkit-font-smoothing:antialiased;
-    transition:background .4s, color .4s; }
-  a{color:inherit;text-decoration:none}
-  button{font-family:inherit;cursor:pointer}
+  body{background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:17px;
+    line-height:1.65;-webkit-font-smoothing:antialiased;transition:background .4s,color .4s}
+  a{color:inherit;text-decoration:none} button{font-family:inherit;cursor:pointer}
 
-  /* ───────── TOP BAR ───────── */
-  .bar{ position:sticky; top:0; z-index:30; display:flex; align-items:center;
-    justify-content:space-between; gap:.8rem; padding:.75rem 1.1rem;
-    background:color-mix(in srgb, var(--bg) 92%, transparent);
-    backdrop-filter:blur(12px); border-bottom:1px solid var(--line); }
-  .brand{ display:flex; align-items:baseline; gap:.35rem; font-size:1.05rem; }
-  .brand b{ font-family:var(--display); color:var(--marigold); font-weight:600; }
-  .brand span{ font-family:var(--display); color:var(--ink); }
-  .nav{ display:flex; align-items:center; gap:.15rem; }
-  .nav a{ color:var(--ink-soft); font-size:.82rem; padding:.35rem .6rem; border-radius:999px; }
-  .nav a:hover,.nav a.on{ color:var(--marigold); background:color-mix(in srgb,var(--marigold) 12%,transparent); }
-  .iconbtn{ background:none; border:1px solid var(--line); color:var(--ink-soft);
-    padding:.32rem .7rem; border-radius:999px; font-size:.76rem; font-family:var(--serif); }
-  .iconbtn:hover{ border-color:var(--marigold); color:var(--marigold); }
-  @media(max-width:560px){ .nav a{ padding:.35rem .45rem; font-size:.78rem; } .brand span{ display:none; } }
+  .bar{position:sticky;top:0;z-index:30;display:flex;align-items:center;
+    justify-content:space-between;gap:.8rem;padding:.75rem 1.1rem;
+    background:color-mix(in srgb,var(--bg) 92%,transparent);
+    backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:baseline;gap:.35rem;font-size:1.05rem}
+  .brand b{font-family:var(--display);color:var(--marigold);font-weight:600}
+  .brand span{font-family:var(--display);color:var(--ink)}
+  .nav{display:flex;align-items:center;gap:.15rem}
+  .nav a{color:var(--ink-soft);font-size:.82rem;padding:.35rem .6rem;border-radius:999px}
+  .nav a:hover,.nav a.on{color:var(--marigold);
+    background:color-mix(in srgb,var(--marigold) 12%,transparent)}
+  .pill{background:none;border:1px solid var(--line);color:var(--ink-soft);
+    padding:.32rem .7rem;border-radius:999px;font-size:.76rem;font-family:var(--serif)}
+  .pill:hover{border-color:var(--marigold);color:var(--marigold)}
+  @media(max-width:560px){.nav a{padding:.35rem .4rem;font-size:.76rem}}
 
-  /* ───────── LAYOUT ───────── */
-  .wrap{ max-width:660px; margin:0 auto; padding:2rem 1.3rem; }
-  .hero{ text-align:center; padding:3.5rem 1.3rem 1.5rem; max-width:660px; margin:0 auto; }
-  .deva{ font-family:var(--deva); color:var(--marigold); }
-  .hero .deva{ font-size:1.5rem; margin-bottom:.6rem; }
-  h1{ font-family:var(--display); font-weight:300; line-height:.97;
-    font-size:clamp(2.8rem,12vw,4.2rem); margin-bottom:1.2rem; }
-  h1 em{ color:var(--marigold); font-style:italic; }
-  .lead{ color:var(--ink-soft); font-size:1.03rem; max-width:44ch; margin:0 auto; }
-  .kicker{ font-family:var(--display); text-transform:uppercase; letter-spacing:.25em;
-    font-size:.66rem; color:var(--marigold); margin-bottom:.6rem; }
-  h2{ font-family:var(--display); font-weight:400; line-height:1.1;
-    font-size:clamp(1.7rem,5.5vw,2.2rem); margin-bottom:.6rem; }
-  .sub{ color:var(--ink-soft); font-size:.95rem; margin-bottom:1.6rem; }
+  .wrap{max-width:640px;margin:0 auto;padding:2rem 1.3rem}
+  .hero{text-align:center;padding:3.5rem 1.3rem 1.5rem;max-width:640px;margin:0 auto}
+  .deva{font-family:var(--deva);color:var(--marigold)}
+  .hero .deva{font-size:1.5rem;margin-bottom:.6rem}
+  h1{font-family:var(--display);font-weight:300;line-height:.97;
+    font-size:clamp(2.8rem,12vw,4.2rem);margin-bottom:1.2rem}
+  h1 em{color:var(--marigold);font-style:italic}
+  .lead{color:var(--ink-soft);font-size:1.03rem;max-width:44ch;
+    margin:0 auto;line-height:1.65}
+  .kicker{font-family:var(--display);text-transform:uppercase;letter-spacing:.25em;
+    font-size:.66rem;color:var(--marigold);margin-bottom:.6rem}
+  h2{font-family:var(--display);font-weight:400;line-height:1.1;
+    font-size:clamp(1.7rem,5.5vw,2.2rem);margin-bottom:.6rem}
+  .sub{color:var(--ink-soft);font-size:.95rem;margin-bottom:1.6rem;line-height:1.6}
 
-  /* ───────── FEATURE GRID ───────── */
-  .feature-grid{ display:grid; grid-template-columns:1fr 1fr; gap:.8rem; }
-  @media(max-width:520px){ .feature-grid{ grid-template-columns:1fr; } }
-  .feat{ position:relative; display:block; background:var(--bg-2);
-    border:1px solid var(--line); border-radius:18px; padding:1.5rem 1.3rem;
-    text-align:center; transition:border-color .2s, transform .2s; }
-  .feat:hover{ border-color:var(--marigold); transform:translateY(-2px); }
-  .feat .glyph{ font-family:var(--deva); color:var(--marigold); font-size:1.9rem; margin-bottom:.5rem; }
-  .feat h3{ font-family:var(--display); font-weight:500; font-size:1.14rem; margin-bottom:.5rem; color:var(--ink); }
-  .feat p{ color:var(--ink-soft); font-size:.86rem; line-height:1.55; margin-bottom:1rem; }
-  .feat .go{ color:var(--marigold); font-size:.84rem; border-bottom:1px solid var(--marigold); padding-bottom:2px; }
-  .feat.soon{ opacity:.78; }
-  .feat.soon:hover{ transform:none; border-color:var(--line); }
-  .badge{ position:absolute; top:.9rem; right:.9rem; font-size:.6rem; letter-spacing:.14em;
-    text-transform:uppercase; color:var(--marigold); border:1px solid color-mix(in srgb,var(--marigold) 45%,transparent);
-    border-radius:999px; padding:.18rem .5rem; }
+  /* feature grid */
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+  @media(max-width:500px){.grid{grid-template-columns:1fr}}
+  .feat{position:relative;display:block;background:var(--bg-2);
+    border:1px solid var(--line);border-radius:18px;padding:1.5rem 1.2rem;
+    text-align:center;transition:border-color .2s,transform .18s;color:var(--ink)}
+  .feat:hover{border-color:var(--marigold);transform:translateY(-2px)}
+  .feat.soon{opacity:.75}.feat.soon:hover{transform:none;border-color:var(--line)}
+  .feat .glyph{font-family:var(--deva);color:var(--marigold);font-size:1.8rem;margin-bottom:.5rem}
+  .feat h3{font-family:var(--display);font-weight:500;font-size:1.12rem;margin-bottom:.5rem}
+  .feat p{color:var(--ink-soft);font-size:.85rem;line-height:1.55;margin-bottom:1rem}
+  .feat .go{color:var(--marigold);font-size:.84rem;
+    border-bottom:1px solid color-mix(in srgb,var(--marigold) 50%,transparent);padding-bottom:2px}
+  .badge{position:absolute;top:.85rem;right:.85rem;font-size:.58rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--marigold);
+    border:1px solid color-mix(in srgb,var(--marigold) 40%,transparent);
+    border-radius:999px;padding:.18rem .5rem}
 
-  /* ───────── THESIS ───────── */
-  .thesis{ background:var(--bg-2); border:1px solid var(--line); border-radius:18px;
-    padding:1.7rem 1.4rem; text-align:center; }
-  .thesis p{ font-family:var(--display); font-size:1.2rem; line-height:1.7; margin-bottom:1.3rem; }
-  .thesis em{ font-style:italic; }
-  .flow{ display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:.2rem; }
-  .flow span.chip{ font-size:.72rem; color:var(--ink-soft); padding:.2rem .55rem;
-    border:1px solid var(--line); border-radius:999px; }
-  .flow span.arr{ color:var(--line); margin:0 .25rem; }
+  /* thesis */
+  .thesis{background:var(--bg-2);border:1px solid var(--line);border-radius:18px;
+    padding:1.7rem 1.4rem;text-align:center}
+  .thesis p.main{font-family:var(--display);font-size:1.18rem;line-height:1.7;margin-bottom:1.3rem}
+  .thesis em{font-style:italic}
+  .flow{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:.2rem}
+  .flow .c{font-size:.72rem;color:var(--ink-soft);padding:.2rem .55rem;
+    border:1px solid var(--line);border-radius:999px}
+  .flow .a{color:var(--line);margin:0 .2rem}
 
-  /* ───────── FOOTER ───────── */
-  footer{ text-align:center; padding:3rem 1.3rem 4rem; border-top:1px solid var(--line); margin-top:2rem; }
-  footer .brand-name{ font-family:var(--display); font-size:1.4rem; color:var(--ink); }
-  footer .brand-name b{ color:var(--marigold); }
-  footer .tag{ color:var(--ink-soft); font-size:.76rem; letter-spacing:.2em; text-transform:uppercase; margin:.2rem 0 1.3rem; }
-  .foot-links{ display:flex; justify-content:center; flex-wrap:wrap; gap:.4rem 1.1rem; margin-bottom:1.3rem; }
-  .foot-links a{ color:var(--ink-soft); font-size:.84rem; }
-  .foot-links a:hover{ color:var(--marigold); }
+  /* footer */
+  footer{text-align:center;padding:3rem 1.3rem 4rem;border-top:1px solid var(--line);margin-top:2rem}
+  .foot-deva{font-family:var(--deva);color:var(--marigold);font-size:1.3rem;margin-bottom:.3rem}
+  .foot-brand{font-family:var(--display);font-size:1.3rem;color:var(--ink)}
+  .foot-brand b{color:var(--marigold)}
+  .foot-tag{color:var(--ink-soft);font-size:.76rem;letter-spacing:.2em;
+    text-transform:uppercase;margin:.2rem 0 1.3rem}
+  .foot-links{display:flex;justify-content:center;flex-wrap:wrap;gap:.4rem 1.1rem;margin-bottom:1.3rem}
+  .foot-links a{color:var(--ink-soft);font-size:.84rem}
+  .foot-links a:hover{color:var(--marigold)}
 
-  /* ───────── COMING SOON (shop route) ───────── */
-  .soon-screen{ text-align:center; padding:4rem 1.3rem; max-width:520px; margin:0 auto; }
-  .soon-screen .glyph{ font-family:var(--deva); color:var(--marigold); font-size:2.4rem; margin-bottom:1rem; }
-  .soon-screen h2{ margin-bottom:.8rem; }
-  .soon-screen p{ color:var(--ink-soft); margin-bottom:1.8rem; }
-  .hidden{ display:none; }
+  /* soon screen */
+  .soon-screen{text-align:center;padding:4rem 1.3rem;max-width:500px;margin:0 auto}
+  .soon-screen .g{font-family:var(--deva);color:var(--marigold);font-size:2.4rem;margin-bottom:1rem}
+  .soon-screen h2{margin-bottom:.8rem}
+  .soon-screen p{color:var(--ink-soft);margin-bottom:1.8rem}
+  .hidden{display:none}
 
-  .reveal{ opacity:0; transform:translateY(14px); transition:opacity .6s ease, transform .6s ease; }
-  .reveal.in{ opacity:1; transform:none; }
+  .reveal{opacity:0;transform:translateY(14px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.in{opacity:1;transform:none}
 </style>
 </head>
 <body>
@@ -113,110 +111,120 @@
 <header class="bar">
   <a class="brand" href="/"><b>Sahaj</b><span>&nbsp;Sunn</span></a>
   <nav class="nav" id="nav"></nav>
-  <button class="iconbtn" id="themeBtn">Khadi</button>
+  <button class="pill" id="themeBtn">Khadi</button>
 </header>
 
-<!-- ===== HOME VIEW ===== -->
+<!-- HOME -->
 <main id="view-home">
   <section class="hero">
     <p class="deva">सहज सुनो</p>
     <h1>Listen<br><em>effortlessly</em></h1>
-    <p class="lead">Kabir asked the questions you are afraid to ask — about death, ego, identity, and love. Sahaj Sunn is his songs read for meaning, and a system to live what they point to.</p>
+    <p class="lead">Eight of Kabir's songs — read for meaning. And a quiet tool to pause before you react. That is all this is.</p>
   </section>
 
   <section class="wrap">
-    <div class="feature-grid" id="features"></div>
+    <div class="grid" id="features"></div>
   </section>
 
   <section class="wrap reveal">
     <div class="thesis">
-      <p class="kicker">The whole idea</p>
-      <p>Most apps ask <em style="color:var(--ink-soft)">"how can I become better?"</em><br>This one asks <em style="color:var(--marigold)">"who is trying to become better?"</em></p>
+      <p class="kicker">What this is really asking</p>
+      <p class="main">Most tools ask <em style="color:var(--ink-soft)">"how can I become better?"</em><br>Kabir asks <em style="color:var(--marigold)">"who is trying to become better?"</em></p>
       <div class="flow">
-        <span class="chip">Event</span><span class="arr">→</span>
-        <span class="chip">Observation</span><span class="arr">→</span>
-        <span class="chip">Witness</span><span class="arr">→</span>
-        <span class="chip">Conscious Choice</span><span class="arr">→</span>
-        <span class="chip">Action</span>
+        <span class="c">Event</span><span class="a">→</span>
+        <span class="c">Pause</span><span class="a">→</span>
+        <span class="c">Observe</span><span class="a">→</span>
+        <span class="c">Choose</span><span class="a">→</span>
+        <span class="c">Act</span>
       </div>
     </div>
   </section>
 </main>
 
-<!-- ===== SHOP / COMING-SOON VIEW (in-page route) ===== -->
+<!-- SOON -->
 <main id="view-soon" class="hidden">
   <section class="soon-screen">
-    <div class="glyph" id="soon-glyph">✦</div>
+    <div class="g" id="soon-glyph">✦</div>
     <p class="kicker" id="soon-kicker">Coming soon</p>
-    <h2 id="soon-title">The Shop</h2>
-    <p id="soon-text">Printed editions, prints, and quiet objects carrying a verse. Being made with care. Check back soon.</p>
-    <a class="iconbtn" href="/">← Back home</a>
+    <h2 id="soon-title"></h2>
+    <p id="soon-text"></p>
+    <a class="pill" href="/">← Back home</a>
   </section>
 </main>
 
 <footer>
-  <p class="deva" style="font-size:1.3rem;margin-bottom:.3rem">सहज सुनो</p>
-  <p class="brand-name"><b>Sahaj</b> Sunn</p>
-  <p class="tag">Listen effortlessly</p>
+  <p class="foot-deva">सहज सुनो</p>
+  <p class="foot-brand"><b>Sahaj</b> Sunn</p>
+  <p class="foot-tag">Listen effortlessly</p>
   <div class="foot-links">
     <a href="https://sahajsunn.com">🌐 sahajsunn.com</a>
     <a href="https://instagram.com/sahajsunn" target="_blank" rel="noopener">📷 @sahajsunn</a>
     <a href="https://youtube.com/@sahajsunn" target="_blank" rel="noopener">▶ Sahaj Sunn</a>
   </div>
-  <p class="deva" style="font-size:.82rem">कहै कबीर सुनो भाई साधो</p>
+  <p class="deva" style="font-size:.82rem;color:var(--line)">कहै कबीर सुनो भाई साधो</p>
 </footer>
 
 <script>
-/* ════════════════════════════════════════════════════════════════
-   FEATURES  —  to add a new section of the site, add one entry here.
-   { glyph, title, desc, href, status }
-     status: "live"  → normal card + appears in top nav
-             "soon"  → shows a "Soon" badge, routes to a coming-soon screen
-   For a brand-new full page: create  yourname.html  and set href:"/yourname"
-   (Cloudflare Pages serves yourname.html at /yourname automatically.)
-═══════════════════════════════════════════════════════════════════ */
+// ─── ADD FEATURES HERE ────────────────────────────────────────────────────
+// status "live"  → links to a real page; create that-name.html in the repo
+// status "soon"  → shows a built-in coming-soon screen; no extra file needed
 const FEATURES = [
-  { glyph:"साधो", title:"Songs of the Soul", href:"/songs",
-    desc:"Eight Kabir songs with meaning, reflection, and the music behind each.", status:"live", nav:"Songs" },
-  { glyph:"दर्पण", title:"The Inner OS", href:"/inner-os",
-    desc:"Nine layers of self-inquiry that take one real moment from reaction to witness.", status:"live", nav:"Inner OS" },
-  { glyph:"दुकान", title:"The Shop", href:"/shop",
-    desc:"Printed editions and quiet objects, each carrying a verse.", status:"soon", nav:"Shop",
-    soon:{ kicker:"Coming soon", title:"The Shop",
-      text:"Printed editions, prints, and quiet objects carrying a verse. Being made with care. Check back soon." } },
-  // ← Add more features here. Example:
-  // { glyph:"ध्यान", title:"Daily Verse", href:"/daily", desc:"One verse each morning.", status:"soon", nav:"Daily",
-  //   soon:{ kicker:"Coming soon", title:"Daily Verse", text:"A verse and a reflection, every morning." } },
+  {
+    glyph:"साधो", nav:"Songs", href:"/songs", status:"live",
+    title:"Songs of the Soul",
+    desc:"Eight Kabir songs with the original Hindi, transliteration, English meaning, and a reflection. Start here."
+  },
+  {
+    glyph:"दर्पण", nav:"Reflect", href:"/inner-os-live", status:"live",
+    title:"Reflect",
+    desc:"Describe a difficult moment. Receive one reframe, one inquiry question, and one Kabir verse. A thinking companion, not therapy."
+  },
+  {
+    glyph:"नक्शा", nav:"The OS", href:"/inner-os", status:"live",
+    title:"The Framework",
+    desc:"The nine-layer self-inquiry architecture behind the tool. Understand how it works before using it."
+  },
+  {
+    glyph:"दुकान", nav:"Shop", href:"/shop", status:"soon",
+    soon:{
+      kicker:"Coming soon",
+      title:"The Shop",
+      text:"A printed edition of the Songs, with a way to hear each verse sung. Being made with care."
+    }
+  },
+  // ── Add more here, e.g.:
+  // { glyph:"ध्यान", nav:"Daily", href:"/daily", status:"soon",
+  //   title:"Daily Kabir",
+  //   desc:"One verse each morning.",
+  //   soon:{ kicker:"Coming soon", title:"Daily Kabir", text:"One verse, one question, every morning." } },
 ];
 
-/* in-page routes that show the coming-soon screen instead of navigating away */
-const SOON_ROUTES = Object.fromEntries(
+const SOON = Object.fromEntries(
   FEATURES.filter(f => f.status === "soon").map(f => [f.href, f.soon])
 );
 
-/* ---------- render nav ---------- */
-const nav = document.getElementById("nav");
-nav.innerHTML = `<a href="/" data-path="/">Home</a>` +
+// nav
+document.getElementById("nav").innerHTML =
+  `<a href="/" data-path="/">Home</a>` +
   FEATURES.map(f => `<a href="${f.href}" data-path="${f.href}">${f.nav}</a>`).join("");
 
-/* ---------- render feature cards ---------- */
+// cards
 document.getElementById("features").innerHTML = FEATURES.map(f => `
-  <a class="feat ${f.status==='soon'?'soon':''}" href="${f.href}" data-path="${f.href}">
-    ${f.status==='soon' ? '<span class="badge">Soon</span>' : ''}
+  <a class="feat ${f.status==="soon"?"soon":""}" href="${f.href}" data-path="${f.href}">
+    ${f.status==="soon"?'<span class="badge">Soon</span>':""}
     <div class="glyph">${f.glyph}</div>
     <h3>${f.title}</h3>
-    <p>${f.desc}</p>
-    <span class="go">${f.status==='soon'?'Preview →':'Open →'}</span>
+    <p>${f.desc||""}</p>
+    <span class="go">${f.status==="soon"?"Preview →":"Open →"}</span>
   </a>`).join("");
 
-/* ---------- tiny router (handles only the in-page coming-soon routes) ---------- */
-function route(){
+// router (handles only soon-routes in-page)
+function route() {
   const path = location.pathname.replace(/\/$/,"") || "/";
   const home = document.getElementById("view-home");
   const soon = document.getElementById("view-soon");
-
-  if(SOON_ROUTES[path]){
-    const d = SOON_ROUTES[path];
+  if (SOON[path]) {
+    const d = SOON[path];
     document.getElementById("soon-kicker").textContent = d.kicker;
     document.getElementById("soon-title").textContent  = d.title;
     document.getElementById("soon-text").textContent   = d.text;
@@ -224,39 +232,36 @@ function route(){
   } else {
     soon.classList.add("hidden"); home.classList.remove("hidden");
   }
-  // mark active nav
   document.querySelectorAll(".nav a").forEach(a =>
     a.classList.toggle("on", a.getAttribute("data-path") === path));
 }
 
-/* intercept clicks to soon-routes so they don't 404 (no shop.html needed) */
 document.addEventListener("click", e => {
   const a = e.target.closest("a[data-path]");
-  if(!a) return;
-  const p = a.getAttribute("data-path");
-  if(SOON_ROUTES[p]){
+  if (!a) return;
+  if (SOON[a.getAttribute("data-path")]) {
     e.preventDefault();
-    history.pushState({}, "", p);
-    route();
-    window.scrollTo({ top:0, behavior:"smooth" });
+    history.pushState({}, "", a.getAttribute("data-path"));
+    route(); window.scrollTo({top:0, behavior:"smooth"});
   }
-  // live routes (/songs, /inner-os) fall through → real navigation
 });
 window.addEventListener("popstate", route);
 route();
 
-/* ---------- theme toggle (Vat dark default · Khadi light) ---------- */
-const root = document.documentElement, tbtn = document.getElementById("themeBtn");
-const saved = localStorage.getItem("ss-theme");
-if(saved === "khadi"){ root.setAttribute("data-theme","khadi"); tbtn.textContent="Dark"; }
-tbtn.onclick = () => {
+// theme
+const root = document.documentElement, tb = document.getElementById("themeBtn");
+if (localStorage.getItem("ss-theme") === "khadi") {
+  root.setAttribute("data-theme","khadi"); tb.textContent = "Dark";
+}
+tb.onclick = () => {
   const light = root.getAttribute("data-theme") === "khadi";
-  if(light){ root.removeAttribute("data-theme"); tbtn.textContent="Khadi"; localStorage.setItem("ss-theme","vat"); }
-  else { root.setAttribute("data-theme","khadi"); tbtn.textContent="Dark"; localStorage.setItem("ss-theme","khadi"); }
+  if (light) { root.removeAttribute("data-theme"); tb.textContent="Khadi"; localStorage.setItem("ss-theme","vat"); }
+  else        { root.setAttribute("data-theme","khadi"); tb.textContent="Dark"; localStorage.setItem("ss-theme","khadi"); }
 };
 
-/* ---------- gentle scroll reveal ---------- */
-const io = new IntersectionObserver(es => es.forEach(x => x.isIntersecting && x.target.classList.add("in")), { threshold:.15 });
+// reveal
+const io = new IntersectionObserver(es =>
+  es.forEach(x => x.isIntersecting && x.target.classList.add("in")), {threshold:.15});
 document.querySelectorAll(".reveal").forEach(el => io.observe(el));
 </script>
 </body>

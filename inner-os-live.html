@@ -3,272 +3,361 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Live Inquiry · The Inner OS · Sahaj Sunn</title>
-<meta name="description" content="Enter one real situation and watch it travel from reaction to witness, through nine layers.">
+<title>Reflect · The Inner OS · Sahaj Sunn</title>
+<meta name="description" content="A structured pause before reacting — one reframe, one question, one Kabir verse. Not therapy. A thinking companion.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,300;9..144,0,400;9..144,0,600;9..144,1,400&family=Spectral:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@400;500&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,300;9..144,0,400;9..144,0,600;9..144,1,400&family=Spectral:ital,wght@0,400;0,500;1,400&family=Tiro+Devanagari+Hindi&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#181f33; --bg-2:#202a45; --ink:#edeef8; --ink-soft:#9ba4c6;
-    --indigo:#cdd5f0; --marigold:#e7ad4d; --thread:#5a6898; --line:#2d3d6e; --green:#4caf82;
-    --serif:"Spectral",Georgia,serif; --display:"Fraunces",Georgia,serif;
-    --deva:"Tiro Devanagari Hindi","Noto Serif Devanagari",serif; --mono:"DM Mono",ui-monospace,monospace;
+    --bg:#181f33;--bg-2:#202a45;--ink:#edeef8;--ink-soft:#9ba4c6;
+    --indigo:#cdd5f0;--marigold:#e7ad4d;--thread:#5a6898;--line:#2d3d6e;--green:#4caf82;
+    --serif:"Spectral",Georgia,serif;--display:"Fraunces",Georgia,serif;
+    --deva:"Tiro Devanagari Hindi","Noto Serif Devanagari",serif;
   }
   html[data-theme="khadi"]{
-    --bg:#f0e8d6; --bg-2:#e8dcc8; --ink:#1e1810; --ink-soft:#5a5038;
-    --indigo:#1e2d52; --marigold:#b87820; --thread:#b8a882; --line:#ccc0a0; --green:#3a7a55;
+    --bg:#f0e8d6;--bg-2:#e8dcc8;--ink:#1e1810;--ink-soft:#5a5038;
+    --indigo:#1e2d52;--marigold:#b87820;--thread:#b8a882;--line:#ccc0a0;--green:#3a7a55;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   html{scroll-behavior:smooth}
-  body{ background:var(--bg); color:var(--ink); font-family:var(--serif); font-size:17px; line-height:1.65;
-    -webkit-font-smoothing:antialiased; transition:background .4s,color .4s; }
-  a{color:inherit} button,textarea{font-family:inherit}
-  textarea:focus{outline:none;border-color:var(--marigold);box-shadow:0 0 0 3px color-mix(in srgb,var(--marigold) 10%,transparent)}
+  body{background:var(--bg);color:var(--ink);font-family:var(--serif);font-size:17px;
+    line-height:1.65;-webkit-font-smoothing:antialiased;transition:background .4s,color .4s}
+  a{color:inherit;text-decoration:none}
+  button,textarea{font-family:inherit;cursor:pointer}
+  textarea:focus{outline:none;border-color:var(--marigold)!important;
+    box-shadow:0 0 0 3px color-mix(in srgb,var(--marigold) 10%,transparent)}
 
-  .bar{ position:sticky; top:0; z-index:30; display:flex; align-items:center; justify-content:space-between;
-    gap:.8rem; padding:.75rem 1.1rem; background:color-mix(in srgb,var(--bg) 92%,transparent);
-    backdrop-filter:blur(12px); border-bottom:1px solid var(--line); }
-  .brand{ display:flex; align-items:baseline; gap:.35rem; font-size:1rem; text-decoration:none; }
-  .brand b{ font-family:var(--display); color:var(--marigold); font-weight:600; }
-  .brand span{ font-family:var(--display); color:var(--ink); }
-  .brand .sep{ color:var(--line); margin:0 .15rem; } .brand small{ color:var(--ink-soft); font-size:.78rem; }
-  .bar-right{ display:flex; gap:.4rem; align-items:center; }
-  .iconbtn{ background:none; border:1px solid var(--line); color:var(--ink-soft);
-    padding:.32rem .7rem; border-radius:999px; font-size:.76rem; font-family:var(--serif); text-decoration:none; cursor:pointer; }
-  .iconbtn:hover{ border-color:var(--marigold); color:var(--marigold); }
+  /* bar */
+  .bar{position:sticky;top:0;z-index:30;display:flex;align-items:center;
+    justify-content:space-between;padding:.75rem 1.1rem;
+    background:color-mix(in srgb,var(--bg) 92%,transparent);
+    backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  .brand{display:flex;align-items:baseline;gap:.35rem;font-size:1rem}
+  .brand b{font-family:var(--display);color:var(--marigold);font-weight:600}
+  .brand span{font-family:var(--display);color:var(--ink)}
+  .brand .sep{color:var(--line);margin:0 .15rem}
+  .brand small{color:var(--ink-soft);font-size:.78rem}
+  .bar-right{display:flex;gap:.4rem;align-items:center}
+  .pill{background:none;border:1px solid var(--line);color:var(--ink-soft);
+    padding:.3rem .7rem;border-radius:999px;font-size:.76rem;font-family:var(--serif)}
+  .pill:hover{border-color:var(--marigold);color:var(--marigold)}
 
-  .wrap{ max-width:640px; margin:0 auto; padding:2.5rem 1.3rem 5rem; }
-  .deva{ font-family:var(--deva); color:var(--marigold); }
-  .eyebrow{ font-family:var(--display); text-transform:uppercase; letter-spacing:.3em; font-size:.66rem; color:var(--marigold); margin-bottom:1.1rem; }
-  h1{ font-family:var(--display); font-weight:300; font-size:clamp(2.3rem,9vw,3.3rem); line-height:1; margin-bottom:1.1rem; }
-  h1 em{ color:var(--marigold); font-style:italic; }
-  .lead{ color:var(--ink-soft); font-size:1rem; margin-bottom:1.8rem; }
+  /* layout */
+  .wrap{max-width:580px;margin:0 auto;padding:2.5rem 1.2rem 5rem}
 
-  textarea{ width:100%; background:var(--bg-2); color:var(--ink); border:1px solid var(--line);
-    border-radius:14px; padding:1rem 1.1rem; font-size:16px; line-height:1.7; resize:vertical; transition:border-color .2s,box-shadow .2s; }
-  .cta{ margin-top:1rem; width:100%; background:var(--indigo); color:var(--bg); border:none;
-    border-radius:999px; padding:.85rem; font-size:1rem; font-weight:500; cursor:pointer; font-family:var(--serif); transition:opacity .2s; }
-  .cta:disabled{ background:var(--bg-2); color:var(--ink-soft); cursor:not-allowed; }
-  .cta:not(:disabled):hover{ opacity:.9; }
-  .err{ color:var(--marigold); font-size:.84rem; margin-top:.6rem; }
-  .flow-pre{ margin-top:2.5rem; padding-top:1.5rem; border-top:1px solid var(--line); display:flex; flex-wrap:wrap; justify-content:center; align-items:center; gap:.2rem; }
-  .flow-pre span.c{ font-size:.72rem; color:var(--ink-soft); padding:.2rem .5rem; border:1px solid var(--line); border-radius:999px; }
-  .flow-pre span.a{ color:var(--line); margin:0 .15rem; }
+  /* disclaimer */
+  .disclaimer{background:color-mix(in srgb,var(--marigold) 8%,transparent);
+    border:1px solid color-mix(in srgb,var(--marigold) 30%,transparent);
+    border-radius:12px;padding:.85rem 1rem;margin-bottom:2rem;
+    display:flex;gap:.75rem;align-items:flex-start}
+  .disclaimer .icon{color:var(--marigold);font-size:1rem;margin-top:.1rem;flex-shrink:0}
+  .disclaimer p{color:var(--ink-soft);font-size:.84rem;line-height:1.6}
+  .disclaimer strong{color:var(--ink);font-weight:500}
 
-  .trigger{ background:var(--bg-2); border:1px solid var(--line); border-radius:14px; padding:1rem 1.1rem; }
-  .mini{ font-size:.62rem; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:.4rem; }
-  .trigger .q{ font-family:var(--display); font-style:italic; color:var(--ink); font-size:1.05rem; line-height:1.5; }
+  /* hero */
+  .eyebrow{font-family:var(--display);text-transform:uppercase;letter-spacing:.28em;
+    font-size:.65rem;color:var(--marigold);margin-bottom:1rem}
+  h1{font-family:var(--display);font-weight:300;font-size:clamp(2.2rem,8vw,3rem);
+    line-height:1;margin-bottom:.9rem}
+  h1 em{color:var(--marigold);font-style:italic}
+  .lead{color:var(--ink-soft);font-size:.97rem;line-height:1.65;margin-bottom:2rem}
 
-  .layer{ position:relative; padding-left:2.7rem; padding-bottom:1.3rem; opacity:.35; transition:opacity .4s; }
-  .layer.shown,.layer.loading{ opacity:1; }
-  .layer .line{ position:absolute; left:1.15rem; top:2.6rem; bottom:0; width:2px; background:var(--line); transition:background .4s; }
-  .layer.shown .line{ background:var(--thread); }
-  .node{ position:absolute; left:0; top:.12rem; width:2.3rem; height:2.3rem; border-radius:50%;
-    border:2px solid var(--thread); background:var(--bg-2); display:flex; align-items:center; justify-content:center;
-    font-family:var(--display); font-weight:600; color:var(--ink-soft); transition:border-color .4s,color .4s; }
-  .layer.shown .node{ border-color:var(--marigold); color:var(--marigold); }
-  .lt{ font-family:var(--display); font-size:1.04rem; color:var(--ink); }
-  .lv{ color:var(--ink-soft); font-size:.8rem; font-style:italic; }
-  .lbody{ margin-top:.7rem; display:none; } .layer.shown .lbody{ display:block; animation:rin .35s ease; }
+  /* input */
+  textarea{width:100%;background:var(--bg-2);color:var(--ink);border:1px solid var(--line);
+    border-radius:14px;padding:1rem 1.1rem;font-size:16px;line-height:1.7;resize:vertical;
+    transition:border-color .2s,box-shadow .2s}
+  .char-count{text-align:right;font-size:.74rem;color:var(--thread);margin-top:.35rem}
+  .cta{margin-top:1rem;width:100%;background:var(--indigo);color:var(--bg);border:none;
+    border-radius:999px;padding:.85rem;font-size:1rem;font-weight:500;
+    transition:opacity .2s,transform .1s}
+  .cta:disabled{background:var(--bg-2);color:var(--ink-soft);cursor:not-allowed}
+  .cta:not(:disabled):hover{opacity:.9}
+  .cta:not(:disabled):active{transform:scale(.98)}
+  .err{color:var(--marigold);font-size:.84rem;margin-top:.6rem}
+
+  /* three pillars at bottom of input */
+  .pillars{display:flex;gap:.5rem;margin-top:2rem;padding-top:1.5rem;
+    border-top:1px solid var(--line)}
+  .pillar{flex:1;text-align:center}
+  .pillar .num{font-family:var(--display);color:var(--marigold);font-size:1.4rem;
+    font-weight:600;margin-bottom:.2rem}
+  .pillar .lbl{color:var(--ink-soft);font-size:.74rem}
+
+  /* output: trigger */
+  .trigger-card{background:var(--bg-2);border:1px solid var(--line);border-radius:14px;
+    padding:1rem 1.1rem;margin-bottom:1.5rem}
+  .mini{font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--ink-soft);margin-bottom:.4rem}
+  .trigger-text{font-family:var(--display);font-style:italic;color:var(--ink);
+    font-size:1.03rem;line-height:1.5}
+
+  /* three output cards */
+  .cards{display:grid;gap:1rem;margin-bottom:1.5rem}
+  .card{border-radius:16px;padding:1.3rem 1.3rem;
+    opacity:0;transform:translateY(12px);
+    transition:opacity .5s ease,transform .5s ease}
+  .card.in{opacity:1;transform:none}
+  .card-label{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;
+    margin-bottom:.6rem;display:flex;align-items:center;gap:.45rem}
+  .card-label .dot{width:6px;height:6px;border-radius:50%;display:inline-block}
+
+  /* card 1: reframe */
+  .card-reframe{background:var(--bg-2);border:1px solid var(--line)}
+  .card-reframe .card-label{color:var(--ink-soft)}
+  .card-reframe .card-label .dot{background:var(--thread)}
+  .card-reframe .body{color:var(--ink);font-size:.95rem;line-height:1.7}
+
+  /* card 2: question — the hero */
+  .card-question{background:color-mix(in srgb,var(--indigo) 8%,var(--bg-2));
+    border:1px solid color-mix(in srgb,var(--indigo) 30%,transparent)}
+  .card-question .card-label{color:var(--indigo)}
+  .card-question .card-label .dot{background:var(--indigo)}
+  .card-question .body{font-family:var(--display);font-style:italic;
+    font-size:clamp(1.15rem,4vw,1.5rem);color:var(--ink);line-height:1.4}
+
+  /* card 3: kabir */
+  .card-kabir{background:color-mix(in srgb,var(--marigold) 6%,var(--bg-2));
+    border:1px solid color-mix(in srgb,var(--marigold) 25%,transparent)}
+  .card-kabir .card-label{color:var(--marigold)}
+  .card-kabir .card-label .dot{background:var(--marigold)}
+  .card-kabir .deva{font-family:var(--deva);font-size:1.1rem;color:var(--ink);
+    line-height:1.9;margin-bottom:.4rem;white-space:pre-line}
+  .card-kabir .tr{font-style:italic;color:var(--ink-soft);font-size:.84rem;
+    margin-bottom:.35rem;white-space:pre-line}
+  .card-kabir .en{color:var(--indigo);font-size:.9rem}
+  .card-kabir .song{font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--thread);margin-top:.5rem}
+
+  /* closing */
+  .closing{text-align:center;padding:1.4rem 0 1rem;
+    opacity:0;transform:translateY(8px);transition:opacity .5s ease,transform .5s ease}
+  .closing.in{opacity:1;transform:none}
+  .closing .note{font-family:var(--display);font-style:italic;
+    font-size:1.05rem;color:var(--ink-soft);line-height:1.6}
+
+  /* cta row */
+  .action-row{display:flex;gap:.6rem;flex-wrap:wrap;margin-top:1.2rem;
+    opacity:0;transition:opacity .5s ease}
+  .action-row.in{opacity:1}
+  .btn-ghost{flex:1;background:none;border:1px solid var(--line);color:var(--ink-soft);
+    padding:.7rem;border-radius:999px;font-size:.9rem;font-family:var(--serif);min-width:130px}
+  .btn-ghost:hover{border-color:var(--marigold);color:var(--marigold)}
+  .btn-daily{flex:1;background:var(--bg-2);border:1px solid var(--marigold);
+    color:var(--marigold);padding:.7rem;border-radius:999px;font-size:.9rem;
+    font-family:var(--serif);min-width:130px}
+  .btn-daily:hover{background:color-mix(in srgb,var(--marigold) 10%,var(--bg-2))}
+
+  /* daily kabir panel */
+  .daily-panel{display:none;background:var(--bg-2);border:1px solid var(--line);
+    border-radius:16px;padding:1.3rem 1.3rem;margin-top:1rem;text-align:center}
+  .daily-panel.open{display:block;animation:rin .35s ease}
+  .daily-panel h3{font-family:var(--display);font-weight:400;font-size:1.1rem;
+    margin-bottom:.5rem}
+  .daily-panel p{color:var(--ink-soft);font-size:.88rem;line-height:1.6;margin-bottom:1rem}
+  .daily-links{display:flex;gap:.5rem;justify-content:center;flex-wrap:wrap}
+  .daily-link{display:inline-flex;align-items:center;gap:.4rem;color:var(--ink);
+    background:var(--bg);border:1px solid var(--line);border-radius:999px;
+    padding:.45rem .9rem;font-size:.84rem;text-decoration:none}
+  .daily-link:hover{border-color:var(--marigold);color:var(--marigold)}
+
+  /* util */
+  .hidden{display:none}
   @keyframes rin{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
-  .spin{ width:13px; height:13px; border:1.5px solid var(--thread); border-top-color:var(--marigold); border-radius:50%; display:inline-block; animation:sp .8s linear infinite; }
-  @keyframes sp{to{transform:rotate(360deg)}}
-
-  .box{ background:var(--bg-2); border:1px solid var(--line); border-radius:9px; padding:.65rem .8rem; font-size:.88rem; line-height:1.6; }
-  .box.mono{ font-family:var(--mono); }
-  .box.ital{ font-style:italic; }
-  .tag{ display:inline-block; font-size:.7rem; letter-spacing:.08em; text-transform:uppercase; color:var(--marigold);
-    border:1px solid color-mix(in srgb,var(--marigold) 40%,transparent); border-radius:999px; padding:.2rem .6rem; margin-bottom:.5rem; }
-  .chips{ display:flex; flex-wrap:wrap; gap:.35rem; }
-  .chip{ font-size:.78rem; color:var(--ink-soft); border:1px solid var(--line); border-radius:999px; padding:.2rem .6rem; }
-  .belief{ background:var(--bg-2); border:1px solid var(--line); border-radius:8px; padding:.45rem .7rem; color:var(--indigo); font-size:.84rem; font-style:italic; }
-  .lens{ display:flex; gap:.6rem; align-items:baseline; padding:.42rem .6rem; background:var(--bg-2); border:1px solid var(--line); border-radius:8px; }
-  .lens .s{ color:var(--marigold); font-size:.74rem; min-width:5rem; font-family:var(--display); }
-  .lens .l{ color:var(--ink); font-size:.84rem; }
-  .door{ padding:.6rem .8rem; border-radius:9px; background:var(--bg-2); border-left:3px solid var(--thread); }
-  .door .dl{ font-size:.64rem; letter-spacing:.1em; text-transform:uppercase; margin-bottom:.2rem; }
-  .door .dt{ color:var(--ink); font-size:.86rem; }
-  .meter{ display:flex; height:25px; border-radius:6px; overflow:hidden; border:1px solid var(--line); }
-  .meter .seg{ display:flex; align-items:center; padding-left:.5rem; font-size:.7rem; white-space:nowrap; }
-  .grid-gap{ display:grid; gap:.4rem; }
-  .ktoggle{ margin-top:.7rem; background:none; border:none; color:var(--ink-soft); font-size:.77rem; display:flex; align-items:center; gap:.4rem; cursor:pointer; padding:0; }
-  .kbox{ margin-top:.5rem; background:var(--bg-2); border:1px solid color-mix(in srgb,var(--marigold) 25%,transparent); border-radius:10px; padding:.75rem .9rem; }
-  .kbox .khi{ font-family:var(--deva); font-size:1.05rem; color:var(--ink); line-height:1.7; }
-  .kbox .ken{ color:var(--indigo); font-size:.84rem; font-style:italic; margin-top:.2rem; }
-
-  .close{ margin-top:1.3rem; text-align:center; border-top:1px solid var(--line); padding-top:1.8rem; }
-  .close .shift-txt{ color:var(--ink); line-height:1.65; margin-bottom:1rem; }
-  .close .closing{ font-family:var(--display); font-style:italic; font-size:1.12rem; color:var(--marigold); }
-  .hidden{ display:none; }
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .spinner{width:14px;height:14px;border:1.5px solid var(--thread);
+    border-top-color:var(--marigold);border-radius:50%;display:inline-block;
+    animation:spin .8s linear infinite;vertical-align:middle;margin-right:.4rem}
+  ::-webkit-scrollbar{width:3px}
+  ::-webkit-scrollbar-thumb{background:var(--line);border-radius:2px}
 </style>
 </head>
 <body>
 
 <header class="bar">
-  <a class="brand" href="/"><b>Sahaj</b><span>&nbsp;Sunn</span><span class="sep">·</span><small>Live Inquiry</small></a>
+  <a class="brand" href="/"><b>Sahaj</b><span>&nbsp;Sunn</span><span class="sep">·</span><small>Reflect</small></a>
   <div class="bar-right">
-    <a class="iconbtn" href="/inner-os">Architecture</a>
-    <button class="iconbtn" id="themeBtn">Khadi</button>
+    <a class="pill" href="/inner-os">The framework</a>
+    <button class="pill" id="themeBtn">Khadi</button>
   </div>
 </header>
 
 <section class="wrap">
-  <!-- INPUT -->
+
+  <!-- ── INPUT VIEW ── -->
   <div id="input-view">
-    <p class="eyebrow">A self-inquiry operating system</p>
-    <h1>One moment,<br><em>nine layers deep</em></h1>
-    <p class="lead">Name something that disturbed you today. Watch it travel from reaction to witness — through neuroscience, Vedanta, your own conditioning, and Kabir.</p>
-    <textarea id="situation" rows="5" placeholder="My manager criticized my design in front of the team. I felt small and angry..."></textarea>
-    <p class="err hidden" id="err"></p>
-    <button class="cta" id="runBtn" disabled>Run the inquiry ↓</button>
-    <div class="flow-pre">
-      <span class="c">Event</span><span class="a">→</span>
-      <span class="c">Observation</span><span class="a">→</span>
-      <span class="c">Witness</span><span class="a">→</span>
-      <span class="c">Conscious Choice</span><span class="a">→</span>
-      <span class="c">Action</span>
+
+    <div class="disclaimer">
+      <span class="icon">◦</span>
+      <p><strong>This is a reflection tool, not therapy.</strong> It uses AI to generate questions and perspectives inspired by Kabir and Advaita Vedanta. Nothing here is clinical guidance. Use it as a thinking companion, not an authority.</p>
     </div>
+
+    <p class="eyebrow">A structured pause</p>
+    <h1>One moment,<br><em>seen clearly</em></h1>
+    <p class="lead">Describe something that disturbed you. You will receive one reframe, one inquiry question, and one Kabir verse. That is all. No diagnosis, no layers, no scores.</p>
+
+    <textarea id="situation" rows="5" maxlength="2000"
+      placeholder="My manager criticised my work in front of everyone. I felt something I cannot name — shame, maybe anger..."></textarea>
+    <p class="char-count"><span id="charCount">0</span> / 2000</p>
+    <p class="err hidden" id="err"></p>
+    <button class="cta" id="runBtn" disabled>Reflect on this →</button>
+
+    <div class="pillars">
+      <div class="pillar"><div class="num">一</div><div class="lbl">A reframe</div></div>
+      <div class="pillar"><div class="num">二</div><div class="lbl">One question</div></div>
+      <div class="pillar"><div class="num">三</div><div class="lbl">A Kabir verse</div></div>
+    </div>
+
   </div>
 
-  <!-- RESULT -->
+  <!-- ── RESULT VIEW ── -->
   <div id="result-view" class="hidden">
-    <div class="trigger"><p class="mini">The trigger</p><p class="q" id="trigger-q"></p></div>
-    <button class="iconbtn" id="resetBtn" style="margin-top:.8rem">↩ New situation</button>
-    <div id="spine" style="margin-top:1.2rem"></div>
-    <div id="close" class="close hidden">
-      <p class="mini">The shift</p>
-      <p class="shift-txt">You came in as the one who was hurt. You leave as the one who watched the hurt. That is the whole movement.</p>
-      <p class="closing" id="closing"></p>
-      <button class="iconbtn" id="againBtn" style="margin-top:1.3rem">Begin again</button>
-      <p class="deva" style="margin-top:2rem;font-size:.82rem;color:var(--line)">सहज सुनो · sahajsunn.com</p>
+
+    <div class="trigger-card">
+      <p class="mini">You described</p>
+      <p class="trigger-text" id="trigger-text"></p>
     </div>
+
+    <div class="cards" id="cards">
+
+      <div class="card card-reframe" id="card1">
+        <p class="mini card-label"><span class="dot"></span>A perspective</p>
+        <p class="body" id="out-reframe"></p>
+      </div>
+
+      <div class="card card-question" id="card2">
+        <p class="mini card-label"><span class="dot"></span>Sit with this</p>
+        <p class="body" id="out-question"></p>
+      </div>
+
+      <div class="card card-kabir" id="card3">
+        <p class="mini card-label"><span class="dot"></span>Kabir says</p>
+        <p class="deva" id="out-hi"></p>
+        <p class="tr" id="out-tr"></p>
+        <p class="en" id="out-en"></p>
+        <p class="song" id="out-song"></p>
+      </div>
+
+    </div>
+
+    <div class="closing" id="closing">
+      <p class="note" id="out-note"></p>
+    </div>
+
+    <div class="action-row" id="action-row">
+      <button class="btn-ghost" id="resetBtn">← New reflection</button>
+      <button class="btn-daily" id="dailyBtn">Get daily verse</button>
+    </div>
+
+    <div class="daily-panel" id="daily-panel">
+      <h3>Daily Kabir</h3>
+      <p>One verse each morning — Devanagari, meaning, and a question to carry through the day. Free, no sign-up.</p>
+      <div class="daily-links">
+        <a class="daily-link" href="https://instagram.com/sahajsunn" target="_blank" rel="noopener">📷 Instagram</a>
+        <a class="daily-link" href="https://youtube.com/@sahajsunn" target="_blank" rel="noopener">▶ YouTube</a>
+      </div>
+    </div>
+
   </div>
 </section>
 
 <script>
-const KABIR = {
-  1:["Jag Baurana","साधो देखो, जग बौराना","O seeker, look — the world has gone mad."],
-  2:["Jagat Mein Kaisa Nata Re","मन फूला फूला फिरे","The mind wanders, swollen with itself."],
-  3:["Saadho, Ye Murdon Ka Gaon","माटी कहे कुम्हार से","The clay says to the potter: you too are clay."],
-  4:["Nirbhau Nirvair","ऐसी मरनी जो मरे, बहुरि न मरना होय","Die such a death once, and you never die again."],
-  5:["Jag Baurana","साखी शब्द गावत भूले, आतम खबर न जाना","They sing the verses by heart, yet know nothing of the Self."],
-  6:["Sahib So Preet","सुंदर देह देख मत भूलो, जैसे तृण पर सीत","Don't be fooled by beauty; it is dew on grass."],
-  7:["Ud Jaayega Hans Akela","उड़ जाएगा हंस अकेला","The swan will fly off alone."],
-  8:["Ram Gaadi Wale","जित खींचे तित जाऊँ","Wherever the Lord pulls, there I go."],
-  9:["Naiyya Padi Manjhdaar","नैया पड़ी मझधार, गुरु बिन कैसे लगे पार","The boat is caught midstream; without the Guru, how to cross?"]
+// ── Kabir verses, one per pattern ─────────────────────────────────────────
+const VERSES = {
+  pride:       {hi:"आसन मारि डिंभ धरि बैठे, मन में बहुत गुमाना।",        tr:"Aasan maari dimbh dhari baithe, man mein bahut gumaana.",    en:"They sit in solemn poses, the mind swollen with pride.",                  song:"Jag Baurana"},
+  recognition: {hi:"मन फूला फूला फिरे,\nजगत में कैसा नाता रे।",           tr:"Man phoola phoola phire,\njagat mein kaisa nata re.",        en:"The mind wanders, swollen with itself. What kinship is this world?",     song:"Jagat Mein Kaisa Nata Re"},
+  loss:        {hi:"हंस अकेला जाई।",                                        tr:"Hans akela jaai.",                                           en:"The soul departs alone.",                                                 song:"Jagat Mein Kaisa Nata Re"},
+  identity:    {hi:"आपस में दोउ लड़े मरत हैं,\nमरम न कोऊ जाना।",           tr:"Aapas mein dou lade marat hain,\nmaram na ko-oo jaana.",    en:"They fight to the death over names, missing the secret.",                song:"Jag Baurana"},
+  fear:        {hi:"निर्भउ निरवैर।\nऐसी मरनी जो मरे,\nबहुरि न मरना होय।",  tr:"Nirbhau Nirvair.\nAisi marni jo mare,\nbahuri na marna hoye.", en:"Without fear, without enmity. Die such a death once and you never die again.", song:"Nirbhau Nirvair"},
+  control:     {hi:"कबीरा कुत्ता राम का,\nजित खींचे तित जाऊँ।",            tr:"Kabira kutta Ram ka,\njit kheenche tit jaaun.",              en:"Kabir is the Lord's dog — wherever the leash pulls, there I go.",         song:"Ram Gaadi Wale"},
+  surrender:   {hi:"नैया पड़ी मझधार,\nगुरु बिन कैसे लगे पार।",             tr:"Naiyya padi manjhdhaar,\nguru bin kaise lage paar.",         en:"The boat is caught midstream. Without truth, how do I cross?",           song:"Naiyya Padi Manjhdaar"},
+  default:     {hi:"साधो देखो, जग बौराना।\nसाँची कहे तो मारन धावे।",       tr:"Saadho dekho, jag baurana.\nSaanchi kahe to maaran dhaave.", en:"O seeker, look — the world has gone mad. Speak truth and it rushes to strike.", song:"Jag Baurana"},
 };
-const META = [
-  [1,"Trigger Detection","What happened?"],
-  [2,"Ego Decoder","What part of you got hurt?"],
-  [3,"Neuroscience Layer","What is happening biologically?"],
-  [4,"Vedanta Layer","Who is disturbed?"],
-  [5,"Conditioning Scanner","What belief got triggered?"],
-  [6,"Philosophical Lens Engine","Same event, many schools."],
-  [7,"Witness State Score","Reaction vs witness."],
-  [8,"Conscious Action Generator","Three doors, one choice."],
-  [9,"Reflection Loop","What to carry forward."]
-];
-const esc = s => String(s==null?"":s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
 
-function content(n, r){
-  if(n===1) return `<div class="box">${esc(r.restate)}</div>`;
-  if(n===2) return `<div class="tag">Ego pattern: ${esc(r.egoPattern)}</div><div class="box">${esc(r.egoHurt)}</div>`;
-  if(n===3) return `<div class="box">${esc(r.neuro)}</div>`;
-  if(n===4) return `<div class="box mono">Who is disturbed? → ${esc(r.vedantaWho)}</div><p style="color:var(--marigold);font-size:.88rem;margin-top:.5rem;line-height:1.55">${esc(r.vedantaTruth)}</p>`;
-  if(n===5) return `<div class="grid-gap" style="margin-bottom:.6rem">${(r.beliefs||[]).map(b=>`<div class="belief">"${esc(b)}"</div>`).join("")}</div><div class="chips">${(r.conditioningSources||[]).map(s=>`<span class="chip">${esc(s)}</span>`).join("")}</div>`;
-  if(n===6) return `<div class="grid-gap">${Object.entries(r.lenses||{}).map(([s,l])=>`<div class="lens"><span class="s">${esc(s)}</span><span class="l">${esc(l)}</span></div>`).join("")}</div>`;
-  if(n===7){ const re=Math.max(0,Math.min(100,r.reactionPct??80)), wi=100-re;
-    return `<div class="meter"><div class="seg" style="width:${re}%;background:color-mix(in srgb,var(--marigold) 28%,transparent);color:var(--marigold)">reaction ${re}%</div><div class="seg" style="width:${wi}%;background:color-mix(in srgb,var(--green) 25%,transparent);color:var(--green)">witness ${wi}%</div></div><p style="font-size:.8rem;color:var(--ink-soft);font-style:italic;margin-top:.5rem">The only score is presence.</p>`; }
-  if(n===8) return `<div class="grid-gap">
-      <div class="door" style="border-left-color:var(--marigold)"><div class="dl" style="color:var(--marigold)">Ego Action</div><div class="dt">${esc(r.egoAction)}</div></div>
-      <div class="door" style="border-left-color:var(--ink-soft)"><div class="dl" style="color:var(--ink-soft)">Conditioned Action</div><div class="dt">${esc(r.conditionedAction)}</div></div>
-      <div class="door" style="border-left-color:var(--green);box-shadow:0 0 0 1px color-mix(in srgb,var(--green) 40%,transparent)"><div class="dl" style="color:var(--green)">Conscious Action ✓</div><div class="dt">${esc(r.consciousAction)}</div></div>
-    </div>`;
-  if(n===9) return `<div class="box ital">${esc(r.reflection)}</div>`;
-  return "";
-}
+// ── DOM refs ──────────────────────────────────────────────────────────────
+const $  = id => document.getElementById(id);
+const ta = $("situation"), runBtn = $("runBtn"), errEl = $("err");
 
-const $ = s => document.querySelector(s);
-const ta = $("#situation"), runBtn = $("#runBtn"), err = $("#err");
-ta.addEventListener("input", () => { runBtn.disabled = ta.value.trim().length < 15; });
+ta.addEventListener("input", () => {
+  $("charCount").textContent = ta.value.length;
+  runBtn.disabled = ta.value.trim().length < 20;
+});
 
-let timers = [];
-function clearTimers(){ timers.forEach(clearTimeout); timers = []; }
+// ── Run ───────────────────────────────────────────────────────────────────
+async function run() {
+  errEl.classList.add("hidden");
+  runBtn.disabled = true;
+  runBtn.innerHTML = '<span class="spinner"></span>Reflecting...';
 
-async function run(){
-  err.classList.add("hidden");
-  runBtn.disabled = true; runBtn.textContent = "Reading...";
   let data;
-  try{
+  try {
     const res = await fetch("/api/inquire", {
-      method:"POST", headers:{ "Content-Type":"application/json" },
-      body: JSON.stringify({ situation: ta.value.trim() })
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({situation: ta.value.trim()})
     });
     data = await res.json();
-    if(!res.ok) throw new Error(data.error || "error");
-  }catch(e){
-    err.textContent = (e.message && e.message !== "error") ? e.message : "The analysis went quiet. Please try again.";
-    err.classList.remove("hidden");
-    runBtn.disabled = false; runBtn.textContent = "Run the inquiry ↓";
+    if (!res.ok) throw new Error(data.error || "Something went quiet.");
+  } catch(e) {
+    errEl.textContent = e.message || "Something went quiet. Please try again.";
+    errEl.classList.remove("hidden");
+    runBtn.disabled = false;
+    runBtn.textContent = "Reflect on this →";
     return;
   }
 
-  // build spine
-  $("#trigger-q").textContent = `"${data.restate || ta.value.trim()}"`;
-  $("#spine").innerHTML = META.map(([n,t,v],i)=>`
-    <div class="layer" id="L${n}">
-      ${i<META.length-1?'<div class="line"></div>':''}
-      <div class="node" id="node${n}">${n}</div>
-      <div class="lt">${t}</div><div class="lv">${v}</div>
-      <div class="lbody">
-        <div id="c${n}"></div>
-        <button class="ktoggle" data-n="${n}"><span class="deva">❀</span><span>From the book · ${KABIR[n][0]}</span></button>
-        <div class="kbox hidden" id="k${n}"><p class="khi">${KABIR[n][1]}</p><p class="ken">${KABIR[n][2]}</p></div>
-      </div>
-    </div>`).join("");
+  const v = VERSES[data.kabir_key] || VERSES.default;
 
-  $("#input-view").classList.add("hidden");
-  $("#result-view").classList.remove("hidden");
-  window.scrollTo({ top:0, behavior:"smooth" });
+  // populate
+  $("trigger-text").textContent = `"${data.restate || ta.value.trim()}"`;
+  $("out-reframe").textContent  = data.reframe  || "";
+  $("out-question").textContent = data.question || "";
+  $("out-hi").textContent       = v.hi;
+  $("out-tr").textContent       = v.tr;
+  $("out-en").textContent       = v.en;
+  $("out-song").textContent     = "Sahaj Sunn · " + v.song;
+  $("out-note").textContent     = data.note     || "";
 
-  // reveal one by one
-  clearTimers();
-  for(let n=1;n<=9;n++){
-    timers.push(setTimeout(()=>{
-      $("#c"+n).innerHTML = content(n, data);
-      $("#L"+n).classList.add("shown");
-      if(n===9){ $("#closing").textContent = data.closing || ""; $("#close").classList.remove("hidden"); }
-    }, n*460));
-  }
+  // switch views
+  $("input-view").classList.add("hidden");
+  $("result-view").classList.remove("hidden");
+  window.scrollTo({top:0, behavior:"smooth"});
+
+  // stagger reveal
+  setTimeout(() => $("card1").classList.add("in"),  150);
+  setTimeout(() => $("card2").classList.add("in"),  450);
+  setTimeout(() => $("card3").classList.add("in"),  750);
+  setTimeout(() => $("closing").classList.add("in"), 1050);
+  setTimeout(() => $("action-row").classList.add("in"), 1200);
 }
 
-function reset(){
-  clearTimers();
-  $("#result-view").classList.add("hidden");
-  $("#close").classList.add("hidden");
-  $("#input-view").classList.remove("hidden");
-  ta.value = ""; runBtn.disabled = true; runBtn.textContent = "Run the inquiry ↓";
-  err.classList.add("hidden");
-  window.scrollTo({ top:0, behavior:"smooth" });
+function reset() {
+  ["card1","card2","card3","closing","action-row"].forEach(id => {
+    const el = $(id); el.classList.remove("in");
+  });
+  $("daily-panel").classList.remove("open");
+  $("result-view").classList.add("hidden");
+  $("input-view").classList.remove("hidden");
+  ta.value = ""; $("charCount").textContent = "0";
+  runBtn.disabled = true; runBtn.textContent = "Reflect on this →";
+  errEl.classList.add("hidden");
+  window.scrollTo({top:0, behavior:"smooth"});
 }
 
-runBtn.onclick = run;
-$("#resetBtn").onclick = reset;
-$("#againBtn").onclick = reset;
+$("runBtn").onclick  = run;
+$("resetBtn").onclick = reset;
+$("dailyBtn").onclick = () => $("daily-panel").classList.toggle("open");
 
-// kabir toggles (delegated)
-$("#spine").addEventListener("click", e => {
-  const b = e.target.closest(".ktoggle"); if(!b) return;
-  $("#k"+b.dataset.n).classList.toggle("hidden");
-});
-
-// theme
-const root=document.documentElement, tb=$("#themeBtn");
-if(localStorage.getItem("ss-theme")==="khadi"){ root.setAttribute("data-theme","khadi"); tb.textContent="Dark"; }
-tb.onclick=()=>{ const light=root.getAttribute("data-theme")==="khadi";
-  if(light){ root.removeAttribute("data-theme"); tb.textContent="Khadi"; localStorage.setItem("ss-theme","vat"); }
-  else { root.setAttribute("data-theme","khadi"); tb.textContent="Dark"; localStorage.setItem("ss-theme","khadi"); } };
+// ── Theme ─────────────────────────────────────────────────────────────────
+const root = document.documentElement, tb = $("themeBtn");
+if (localStorage.getItem("ss-theme") === "khadi") {
+  root.setAttribute("data-theme","khadi"); tb.textContent = "Dark";
+}
+tb.onclick = () => {
+  const light = root.getAttribute("data-theme") === "khadi";
+  if (light) { root.removeAttribute("data-theme"); tb.textContent = "Khadi"; localStorage.setItem("ss-theme","vat"); }
+  else        { root.setAttribute("data-theme","khadi"); tb.textContent = "Dark"; localStorage.setItem("ss-theme","khadi"); }
+};
 </script>
 </body>
 </html>
