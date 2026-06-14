@@ -9,7 +9,6 @@ Kabir's songs read for meaning, and a self-inquiry operating system to live what
 ---
 
 ## What this is
-
 A static multi-page site with one serverless backend function. No framework, no build step. Every page is a plain `.html` file; the backend is a single Cloudflare Pages Function that securely proxies calls to the Claude API.
 
 | Page | Route | What it is |
